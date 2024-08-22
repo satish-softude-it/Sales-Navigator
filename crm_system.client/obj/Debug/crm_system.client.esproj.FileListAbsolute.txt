@@ -1,1 +1,2 @@
 D:\Softude_Project\CRM_System\crm_system.client\obj\Debug\crm_system.client.esproj.CoreCompileInputs.cache
+C:\Users\satish.vishwakarma\Desktop\Sales System\CRM_System\crm_system.client\obj\Debug\crm_system.client.esproj.CoreCompileInputs.cache
