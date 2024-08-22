@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 // import { GoogleLogin } from "@react-oauth/google";
 // import { FaGoogle } from "react-icons/fa";
-import GoogleButton from 'react-google-button';
+import GoogleButton from "react-google-button";
 import GoogleSignUp from "../GoogleSignUp/GoogleSignUp";
 
 const SignUp = () => {
@@ -9,7 +9,12 @@ const SignUp = () => {
 
   const handleSignInClick = (event) => {
     event.preventDefault(); // Prevent default link behavior
-    navigate("/signup"); // Navigate to the SignIn page
+    navigate("/signUp"); // Navigate to the SignIn page
+  };
+
+  const handleForgotPasswordClick = (event) => {
+    event.preventDefault(); // Prevent default link behavior
+    navigate("/forgotPassword"); // Navigate to the SignIn page
   };
 
   return (
@@ -19,8 +24,8 @@ const SignUp = () => {
 
       <div className="">
         <div className=" input-container d-flex justify-content-around">
-        <GoogleButton className="rounded-4" />
-        <GoogleSignUp/>
+          <GoogleButton className="rounded-4" />
+          <GoogleSignUp />
         </div>
       </div>
 
@@ -37,14 +42,21 @@ const SignUp = () => {
       </label>
 
       <button className="submit">Submit</button>
-      <button className="submit">Submit</button>
 
-      <p className="signin">
-        Already have an account?{" "}
-        <a href="" onClick={handleSignInClick}>
-          Signin
+    <div className="d-flex justify-content-around mt-3">
+    <p className="signin">
+        <a href="" onClick={handleForgotPasswordClick}>
+          Forgot Password ?
         </a>
       </p>
+
+      <p className="signin">
+        New User?{" "}
+        <a href="" onClick={handleSignInClick}>
+          Sign Up
+        </a>
+      </p>
+    </div>
 
       <small>Empower Your Business with Seamless Connections</small>
     </form>

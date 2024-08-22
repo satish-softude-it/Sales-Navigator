@@ -8,7 +8,7 @@ const SignUp = () => {
 
   const handleSignInClick = (event) => {
     event.preventDefault(); // Prevent default link behavior
-    navigate("/signin"); // Navigate to the SignIn page
+    navigate("/signIn"); // Navigate to the SignIn page
   };
 
   return (
@@ -63,7 +63,7 @@ const SignUp = () => {
       <p className="signin">
         Already have an account?{" "}
         <a href="" onClick={handleSignInClick}>
-          Signin
+          Sign In 
         </a>
       </p>
       <small>
