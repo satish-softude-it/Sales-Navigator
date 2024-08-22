@@ -12,9 +12,11 @@ import "./App.css";
 //   Form,
 // } from "devextreme-react/data-grid";
 import "devextreme/dist/css/dx.light.css";
+import SignUp from "./Components/Features/SignUp";
+import SignIn from "./Components/Features/SignIn";
 // import { Route } from "devextreme-react/cjs/map";
-import SignUp from "./Components/SignUp/SignUp";
-import SignIn from "./Components/SignIn/SignIn";
+// import SignUp from "./Components/SignUp/SignUp";
+// import SignIn from "./Components/SignIn/SignIn";
 
 function App() {
   return (

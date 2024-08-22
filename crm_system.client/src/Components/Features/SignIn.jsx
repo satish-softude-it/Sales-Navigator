@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin } from "@react-oauth/google";
-import { FaGoogle } from "react-icons/fa";
+// import { GoogleLogin } from "@react-oauth/google";
+// import { FaGoogle } from "react-icons/fa";
 import GoogleButton from 'react-google-button';
 import GoogleSignUp from "../GoogleSignUp/GoogleSignUp";
 
