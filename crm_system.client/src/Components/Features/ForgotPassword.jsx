@@ -11,17 +11,16 @@ const ForgotPassword = () => {
 
   return (
     <form className="form p-4">
-      <p className="title">SignIn</p>
+      <p className="title">Forgot Password...</p>
       {/* <p className="message">Welcome to CRM System </p> */}
 
-      <div className="text-muted m-1">OR</div>
 
       <label>
         <input required placeholder="" type="email" className="input" />
         <span>Email</span>
       </label>
 
-      <button className="submit">Submit</button>
+      <button className="submit">Request OTP</button>
 
       <p className="signin">
         {" "}

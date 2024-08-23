@@ -11,6 +11,8 @@
     <PackageJsonScriptsPreview Condition="$(PackageJsonScriptsPreview) == ''">vite preview</PackageJsonScriptsPreview>
     <PackageJsonDependenciesReactOauthGoogle Condition="$(PackageJsonDependenciesReactOauthGoogle) == ''">^0.12.1</PackageJsonDependenciesReactOauthGoogle>
     <PackageJsonDependenciesAxios Condition="$(PackageJsonDependenciesAxios) == ''">^1.7.4</PackageJsonDependenciesAxios>
+    <PackageJsonDependenciesBootstrap Condition="$(PackageJsonDependenciesBootstrap) == ''">^5.3.3</PackageJsonDependenciesBootstrap>
+    <PackageJsonDependenciesChartJs Condition="$(PackageJsonDependenciesChartJs) == ''">^4.4.4</PackageJsonDependenciesChartJs>
     <PackageJsonDependenciesDevextreme Condition="$(PackageJsonDependenciesDevextreme) == ''">^24.1.5</PackageJsonDependenciesDevextreme>
     <PackageJsonDependenciesDevextremeReact Condition="$(PackageJsonDependenciesDevextremeReact) == ''">^24.1.5</PackageJsonDependenciesDevextremeReact>
     <PackageJsonDependenciesReact Condition="$(PackageJsonDependenciesReact) == ''">^18.3.1</PackageJsonDependenciesReact>

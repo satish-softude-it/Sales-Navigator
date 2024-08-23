@@ -1,57 +1,57 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\",
+  "WorkspaceRootPath": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\sales system\\crm_system\\crm_system.server\\models\\crmsystemdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\salesnavigator\\crm_system\\crm_system.server\\models\\crmsystemdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\models\\crmsystemdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\sales system\\crm_system\\crm_system.server\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\sales system\\crm_system\\crm_system.server\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\sales system\\crm_system\\crm_system.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\sales system\\crm_system\\crm_system.server\\crm_system.server.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\salesnavigator\\crm_system\\crm_system.server\\crm_system.server.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
       "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\crm_system.server.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\sales system\\crm_system\\crm_system.server\\controllers\\valuescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\salesnavigator\\crm_system\\crm_system.server\\controllers\\valuescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\controllers\\valuescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5422763B-D5D1-42EB-95DF-1416DC7B6EA2}|crm_system.client\\crm_system.client.esproj|c:\\users\\satish.vishwakarma\\desktop\\sales system\\crm_system\\crm_system.client\\src\\app.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{5422763B-D5D1-42EB-95DF-1416DC7B6EA2}|crm_system.client\\crm_system.client.esproj|solutionrelative:crm_system.client\\src\\app.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\sales system\\crm_system\\crm_system.server\\dtos\\userlogindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\dtos\\userlogindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\sales system\\crm_system\\crm_system.server\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\salesnavigator\\crm_system\\crm_system.server\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\sales system\\crm_system\\crm_system.server\\dtos\\userregistrationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\salesnavigator\\crm_system\\crm_system.server\\dtos\\userregistrationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\dtos\\userregistrationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\sales system\\crm_system\\crm_system.server\\crm_system.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\salesnavigator\\crm_system\\crm_system.server\\crm_system.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\crm_system.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\sales system\\crm_system\\crm_system.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\salesnavigator\\crm_system\\crm_system.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\sales system\\crm_system\\crm_system.server\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\salesnavigator\\crm_system\\crm_system.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\salesnavigator\\crm_system\\crm_system.server\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\salesnavigator\\crm_system\\crm_system.server\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\salesnavigator\\crm_system\\crm_system.server\\dtos\\userlogindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\dtos\\userlogindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5422763B-D5D1-42EB-95DF-1416DC7B6EA2}|crm_system.client\\crm_system.client.esproj|c:\\users\\satish.vishwakarma\\desktop\\salesnavigator\\crm_system\\crm_system.client\\src\\app.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{5422763B-D5D1-42EB-95DF-1416DC7B6EA2}|crm_system.client\\crm_system.client.esproj|solutionrelative:crm_system.client\\src\\app.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\salesnavigator\\crm_system\\crm_system.server\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -74,49 +74,48 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "CRM_System.Server.http",
-              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\CRM_System.Server.http",
+              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\CRM_System.Server.http",
               "RelativeDocumentMoniker": "CRM_System.Server\\CRM_System.Server.http",
-              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\CRM_System.Server.http",
+              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\CRM_System.Server.http",
               "RelativeToolTip": "CRM_System.Server\\CRM_System.Server.http",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2024-08-22T09:18:43.606Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-22T09:18:43.606Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "ValuesController.cs",
-              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\Controllers\\ValuesController.cs",
+              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\Controllers\\ValuesController.cs",
               "RelativeDocumentMoniker": "CRM_System.Server\\Controllers\\ValuesController.cs",
-              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\Controllers\\ValuesController.cs",
+              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\Controllers\\ValuesController.cs",
               "RelativeToolTip": "CRM_System.Server\\Controllers\\ValuesController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-17T08:03:46.414Z",
+              "WhenOpened": "2024-08-17T08:03:46.414Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "CRM_System.Server\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "CRM_System.Server\\Controllers\\UsersController.cs",
+              "ViewState": "AQIAAIQAAAAAAAAAAAAAAEgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-17T04:09:53.832Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "CRM_System.Server\\Controllers\\UsersController.cs",
-              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "CRM_System.Server\\Controllers\\UsersController.cs",
-              "ViewState": "AQIAAIQAAAAAAAAAAAAAAEgAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-17T04:09:53.832Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 4,
               "Title": "UserRegistrationDto.cs",
-              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\DTOs\\UserRegistrationDto.cs",
+              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\DTOs\\UserRegistrationDto.cs",
               "RelativeDocumentMoniker": "CRM_System.Server\\DTOs\\UserRegistrationDto.cs",
-              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\DTOs\\UserRegistrationDto.cs",
+              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\DTOs\\UserRegistrationDto.cs",
               "RelativeToolTip": "CRM_System.Server\\DTOs\\UserRegistrationDto.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -124,11 +123,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 5,
               "Title": "CRM_System.Server.csproj",
-              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\CRM_System.Server.csproj",
+              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\CRM_System.Server.csproj",
               "RelativeDocumentMoniker": "CRM_System.Server\\CRM_System.Server.csproj",
-              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\CRM_System.Server.csproj",
+              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\CRM_System.Server.csproj",
               "RelativeToolTip": "CRM_System.Server\\CRM_System.Server.csproj",
               "ViewState": "AQIAAAkAAAAAAAAAAAAAABYAAABaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
@@ -136,11 +135,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 6,
               "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\appsettings.json",
+              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\appsettings.json",
               "RelativeDocumentMoniker": "CRM_System.Server\\appsettings.json",
-              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\appsettings.json",
+              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\appsettings.json",
               "RelativeToolTip": "CRM_System.Server\\appsettings.json",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
@@ -148,63 +147,60 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\Program.cs",
               "RelativeDocumentMoniker": "CRM_System.Server\\Program.cs",
-              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\Program.cs",
+              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\Program.cs",
               "RelativeToolTip": "CRM_System.Server\\Program.cs",
               "ViewState": "AgIAACcAAAAAAAAAAAAAADwAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-17T04:17:15.43Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-17T04:17:15.43Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "CrmSystemDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\Models\\CrmSystemDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\Models\\CrmSystemDbContext.cs",
               "RelativeDocumentMoniker": "CRM_System.Server\\Models\\CrmSystemDbContext.cs",
-              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\Models\\CrmSystemDbContext.cs",
+              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\Models\\CrmSystemDbContext.cs",
               "RelativeToolTip": "CRM_System.Server\\Models\\CrmSystemDbContext.cs",
-              "ViewState": "AgIAACwAAAAAAAAAAAAIwDcAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAACwAAAAAAAAAAAAIwDAAAABUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-17T04:11:38.152Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 8,
               "Title": "WeatherForecast.cs",
-              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\WeatherForecast.cs",
+              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\WeatherForecast.cs",
               "RelativeDocumentMoniker": "CRM_System.Server\\WeatherForecast.cs",
-              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\WeatherForecast.cs",
+              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\WeatherForecast.cs",
               "RelativeToolTip": "CRM_System.Server\\WeatherForecast.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-17T04:40:33.68Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-17T04:40:33.68Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 9,
               "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\Models\\User.cs",
+              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\Models\\User.cs",
               "RelativeDocumentMoniker": "CRM_System.Server\\Models\\User.cs",
-              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\Models\\User.cs",
               "RelativeToolTip": "CRM_System.Server\\Models\\User.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAA5wBUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-17T04:40:38.19Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-17T04:40:38.19Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "UserLoginDto.cs",
-              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\DTOs\\UserLoginDto.cs",
+              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\DTOs\\UserLoginDto.cs",
               "RelativeDocumentMoniker": "CRM_System.Server\\DTOs\\UserLoginDto.cs",
-              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\DTOs\\UserLoginDto.cs",
+              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\DTOs\\UserLoginDto.cs",
               "RelativeToolTip": "CRM_System.Server\\DTOs\\UserLoginDto.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAuwAIAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -212,11 +208,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "App.jsx",
-              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\crm_system.client\\src\\App.jsx",
+              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\crm_system.client\\src\\App.jsx",
               "RelativeDocumentMoniker": "crm_system.client\\src\\App.jsx",
-              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\crm_system.client\\src\\App.jsx",
+              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\crm_system.client\\src\\App.jsx",
               "RelativeToolTip": "crm_system.client\\src\\App.jsx",
               "ViewState": "AQIAAEgAAAAAAAAAAAAUwFYAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
@@ -226,9 +222,9 @@
               "$type": "Document",
               "DocumentIndex": 12,
               "Title": "WeatherForecastController.cs",
-              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\Controllers\\WeatherForecastController.cs",
+              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\Controllers\\WeatherForecastController.cs",
               "RelativeDocumentMoniker": "CRM_System.Server\\Controllers\\WeatherForecastController.cs",
-              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\Sales System\\CRM_System\\CRM_System.Server\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\Controllers\\WeatherForecastController.cs",
               "RelativeToolTip": "CRM_System.Server\\Controllers\\WeatherForecastController.cs",
               "ViewState": "AQIAAAoAAAAAAAAAAAAgwCEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

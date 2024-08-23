@@ -16,11 +16,11 @@ import SignUp from "./Components/Features/SignUp";
 import SignIn from "./Components/Features/SignIn";
 import ForgotPassword from "./Components/Features/ForgotPassword";
 import DashBoard from "./Components/Pages/DashBoard";
-import Navbar from "./Components/Pages/DashBoard";
+import Navbar from "./Components/Pages/NavBar";
+import HomePage from "./Components/Pages/HomePage";
 // import { Route } from "devextreme-react/cjs/map";
 // import SignUp from "./Components/SignUp/SignUp";
 // import SignIn from "./Components/SignIn/SignIn";
-
 
 function App() {
   return (
@@ -30,11 +30,10 @@ function App() {
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
-          <Route path="/dashboard" element={<DashBoard />} />
-       
-          <Route path="/navbar" element={<Navbar />} />
 
-       
+          <Route path="/dashboard" element={<DashBoard />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/navbar" element={<Navbar/>} />
         </Routes>
       </Router>
     </>
@@ -119,3 +118,6 @@ function App() {
 }
 
 export default App;
+
+
+

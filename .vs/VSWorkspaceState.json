@@ -2,7 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\CRM_System.Server",
-    "\\CRM_System.Server\\Controllers"
+    "\\CRM_System.Server\\Controllers",
+    "\\CRM_System.Server\\Models"
   ],
   "SelectedNode": "\\CRM_System.sln",
   "PreviewInSolutionExplorer": false
