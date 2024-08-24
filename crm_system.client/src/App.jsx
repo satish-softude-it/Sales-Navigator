@@ -15,9 +15,12 @@ import "devextreme/dist/css/dx.light.css";
 import SignUp from "./Components/Features/SignUp";
 import SignIn from "./Components/Features/SignIn";
 import ForgotPassword from "./Components/Features/ForgotPassword";
-import DashBoard from "./Components/Pages/DashBoard";
-import Navbar from "./Components/Pages/NavBar";
-import HomePage from "./Components/Pages/HomePage";
+// import DashBoard from "./Components/Pages/DashBoard";
+// import Navbar from "./Components/Pages/NavBar";
+// import HomePage from "./Components/Pages/HomePage";
+import Home from "./Components/Pages/Home";
+import About from "./Components/Pages/About";
+import Contact from "./Components/Pages/Contact";
 // import { Route } from "devextreme-react/cjs/map";
 // import SignUp from "./Components/SignUp/SignUp";
 // import SignIn from "./Components/SignIn/SignIn";
@@ -27,13 +30,15 @@ function App() {
     <>
       <Router>
         <Routes>
+          {/*--------------- Home Page ------------------- */}
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+
+          {/*---------------- Features --------------------*/}
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
-
-          <Route path="/dashboard" element={<DashBoard />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/navbar" element={<Navbar/>} />
         </Routes>
       </Router>
     </>
@@ -118,6 +123,3 @@ function App() {
 }
 
 export default App;
-
-
-
