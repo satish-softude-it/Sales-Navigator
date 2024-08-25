@@ -8,7 +8,7 @@ const Header = () => {
         style={{ backgroundColor: "#10058C"}}
       >
         <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
-          <a href="index.html" class="logo d-flex align-items-center">
+          <a href="/" class="logo d-flex align-items-center">
             <img src="images/crm.png" style={{borderRadius:'6px'}} alt="..." />
             <h1 class="sitename">Sales Navigator</h1>
           </a>

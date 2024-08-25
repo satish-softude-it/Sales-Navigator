@@ -4,33 +4,38 @@ import { useNavigate } from "react-router-dom";
 const ForgotPassword = () => {
   const navigate = useNavigate();
 
-  const handleSignInClick = (event) => {
-    event.preventDefault(); // Prevent default link behavior
-    navigate("/signIn"); // Navigate to the SignIn page
+  const handleNavigation = (path) => (event) => {
+    event.preventDefault();
+    navigate(path);
   };
 
   return (
-    <form className="form p-4">
-      <p className="title">Forgot Password...</p>
-      {/* <p className="message">Welcome to CRM System </p> */}
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-md-6 col-lg-4">
+          <div className="card mt-5">
+            <div className="card-body">
+              <form className="p-1">
+                <h3 className="text-center mb-4">Forgot Password</h3>
 
+                <div className="form-floating mb-3">
+                  <input type="email" className="form-control" id="floatingEmail" placeholder="name@example.com" required />
+                  <label htmlFor="floatingEmail">Email address</label>
+                </div>
 
-      <label>
-        <input required placeholder="" type="email" className="input" />
-        <span>Email</span>
-      </label>
+                <button className="btn btn-primary w-100 mb-3" type="submit">Request OTP</button>
 
-      <button className="submit">Request OTP</button>
+                <div className="text-center">
+                  <a href="#" onClick={handleNavigation("/signIn")}><span className="text-black" style={{fontSize:'0.8rem'}}>Back to </span><span style={{fontSize:'0.9rem'}}> Sign In?</span></a>
+                </div>
 
-      <p className="signin">
-        {" "}
-        <a href="" onClick={handleSignInClick}>
-          Back to Sign In?
-        </a>
-      </p>
-
-      <small>Empower Your Business with Seamless Connections</small>
-    </form>
+                <small className="d-block text-center text-muted mt-3">Empower Your Business with Seamless Connections</small>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
