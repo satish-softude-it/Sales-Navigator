@@ -1,66 +1,47 @@
 import { useNavigate } from "react-router-dom";
-// import { GoogleLogin } from "@react-oauth/google";
-// import { FaGoogle } from "react-icons/fa";
-import GoogleButton from "react-google-button";
-import GoogleSignUp from "../GoogleSignUp/GoogleSignUp";
 
-const SignUp = () => {
+const SignIn = () => {
   const navigate = useNavigate();
 
-  const handleSignInClick = (event) => {
-    event.preventDefault(); // Prevent default link behavior
-    navigate("/signUp"); // Navigate to the SignIn page
-  };
-
-  const handleForgotPasswordClick = (event) => {
-    event.preventDefault(); // Prevent default link behavior
-    navigate("/forgotPassword"); // Navigate to the SignIn page
+  const handleNavigation = (path) => (event) => {
+    event.preventDefault();
+    navigate(path);
   };
 
   return (
-    <form className="form p-4">
-      <p className="title">SignIn</p>
-      {/* <p className="message">Welcome to CRM System </p> */}
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-md-6 col-lg-4">
+          <div className="card mt-5">
+            <div className="card-body">
+              <form className="p-1">
+                <h3 className="text-center mb-4">Sign In</h3>
 
-      <div className="">
-        <div className=" input-container d-flex justify-content-around">
-          <GoogleButton className="rounded-4" />
-          <GoogleSignUp />
+                <div className="form-floating mb-3">
+                  <input type="email" className="form-control" id="floatingEmail" placeholder="name@example.com" required />
+                  <label htmlFor="floatingEmail">Email address</label>
+                </div>
+
+                <div className="form-floating mb-3">
+                  <input type="password" className="form-control" id="floatingPassword" placeholder="Password" required />
+                  <label htmlFor="floatingPassword">Password</label>
+                </div>
+
+                <button className="btn btn-primary w-100 mb-3" type="submit">Submit</button>
+
+                <div className="d-flex justify-content-between mb-3" style={{fontSize:'0.9rem'}}>
+                  <a href="#" onClick={handleNavigation("/forgotPassword")}>Forgot Password?</a>
+                  <a href="#" onClick={handleNavigation("/signUp")}> <small className="text-black">New User?</small> Sign Up</a>
+                </div>
+
+                <small className="d-block text-center text-muted">Empower Your Business with Seamless Connections</small>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div className="text-muted m-1">OR</div>
-
-      <label>
-        <input required placeholder="" type="email" className="input" />
-        <span>Email</span>
-      </label>
-
-      <label>
-        <input required placeholder="" type="password" className="input" />
-        <span>Password</span>
-      </label>
-
-      <button className="submit">Submit</button>
-
-    <div className="d-flex justify-content-around mt-3">
-    <p className="signin">
-        <a href="" onClick={handleForgotPasswordClick}>
-          Forgot Password ?
-        </a>
-      </p>
-
-      <p className="signin">
-        New User?{" "}
-        <a href="" onClick={handleSignInClick}>
-          Sign Up
-        </a>
-      </p>
     </div>
-
-      <small>Empower Your Business with Seamless Connections</small>
-    </form>
   );
 };
 
-export default SignUp;
+export default SignIn;

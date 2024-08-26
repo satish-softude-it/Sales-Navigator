@@ -1,14 +1,13 @@
-﻿#root {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
+﻿/* <!---------------!> */
+
+/* 1.0.0-beta.1 */  
+
+@font-face {
+  font-family: 'Font Awesome 6 Free';
+  src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/webfonts/fa-solid-900.woff2') format('woff2'),
+       url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/webfonts/fa-solid-900.woff') format('woff'),
+       url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/webfonts/fa-solid-900.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
 }
 
-th, td {
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
-body{
-    background-color: aliceblue;
-} 

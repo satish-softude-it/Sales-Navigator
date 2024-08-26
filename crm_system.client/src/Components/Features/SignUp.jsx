@@ -6,77 +6,74 @@ import GoogleSignUp from "../GoogleSignUp/GoogleSignUp";
 const SignUp = () => {
   const navigate = useNavigate();
 
-  const handleSignInClick = (event) => {
-    event.preventDefault(); // Prevent default link behavior
-    navigate("/signIn"); // Navigate to the SignIn page
+  const handleNavigation = (path) => (event) => {
+    event.preventDefault();
+    navigate(path);
   };
 
   return (
-    <div>
-      <div>
-        {/* <img src="../../../public/images/home3.jpg" />   */}
-      </div>
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-md-6 col-lg-4">
+          <div className="card mt-5">
+            <div className="card-body">
+              <form className="p-1">
+                <h3 className="text-center mb-4">Sign Up</h3>
 
-      <form className="form p-4">
-        <p className="title">Registration</p>
-        <p className="message">Signup now and get full access to our app.</p>
-        <div className="">
-          <div className=" input-container d-flex justify-content-around">
-            <GoogleButton className="rounded-4" />
-            <GoogleSignUp />
+                <div className="d-flex justify-content-around mb-3">
+                  <GoogleButton className="rounded" />
+                  <GoogleSignUp />
+                </div>
+
+                <div className="text-center text-muted mb-3">OR</div>
+
+                <div className="form-floating mb-3">
+                  <select required className="form-select" id="floatingRole">
+                    <option value="" disabled selected>Select a role</option>
+                    <option value="admin">Admin</option>
+                    <option value="sales_manager">Sales Manager</option>
+                    <option value="sales_representative">Sales Representative</option>
+                    <option value="sales_support">Sales Support</option>
+                  </select>
+                  <label htmlFor="floatingRole">Role</label>
+                </div>
+
+                <div className="form-floating mb-3">
+                  <input type="text" className="form-control" id="floatingName" placeholder="Full Name" required />
+                  <label htmlFor="floatingName">Full Name</label>
+                </div>
+
+                <div className="form-floating mb-3">
+                  <input type="email" className="form-control" id="floatingEmail" placeholder="name@example.com" required />
+                  <label htmlFor="floatingEmail">Email address</label>
+                </div>
+
+                <div className="form-floating mb-3">
+                  <input type="password" className="form-control" id="floatingPassword" placeholder="Password" required />
+                  <label htmlFor="floatingPassword">Password</label>
+                </div>
+
+                <div className="form-floating mb-3">
+                  <input type="password" className="form-control" id="floatingConfirmPassword" placeholder="Confirm Password" required />
+                  <label htmlFor="floatingConfirmPassword">Confirm Password</label>
+                </div>
+
+                <button className="btn btn-primary w-100 mb-3" type="submit">Submit</button>
+
+                <div className="text-center" style={{fontSize:'0.7rem'}}>
+                  Already have an account?{" "}
+                  <a href="#" onClick={handleNavigation("/signIn")} style={{fontSize:'0.9rem'}}>Sign In</a>
+                </div>
+
+                <small className="d-block text-center text-muted mt-3" style={{fontSize:'0.8rem'}}>
+                  By signing up, you agree to our{" "}
+                  <a href="https://crmservice.com/privacy-policy/">Terms of Service and Privacy Policy</a>.
+                </small>
+              </form>
+            </div>
           </div>
         </div>
-
-        <div className="text-muted m-1">OR</div>
-
-        <label className="form-label">
-          <select required className="input">
-            <option value="" disabled>
-              Select a role
-            </option>
-            <option value="admin">Admin</option>
-            <option value="sales_manager">Sales Manager</option>
-            <option value="sales_representative">Sales Representative</option>
-            <option value="sales_support">Sales Support</option>
-          </select>
-          <span className="form-label-text m-1">Role</span>
-        </label>
-
-        <label>
-          <input required placeholder="" type="text" className="input" />
-          <span>Full Name</span>
-        </label>
-
-        <label>
-          <input required placeholder="" type="email" className="input" />
-          <span>Email</span>
-        </label>
-
-        <label>
-          <input required placeholder="" type="password" className="input" />
-          <span>Password</span>
-        </label>
-
-        <label>
-          <input required placeholder="" type="password" className="input" />
-          <span>Confirm password</span>
-        </label>
-
-        <button className="submit">Submit</button>
-
-        <p className="signin">
-          Already have an account?{" "}
-          <a href="" onClick={handleSignInClick}>
-            Sign In
-          </a>
-        </p>
-        <small>
-          By signing up you agree to our{" "}
-          <a href="https://crmservice.com/privacy-policy/#:~:text=Customers%20of%20CRM%2Dservice%20may,may%20be%20required%20by%20law.">
-            Terms of Service and Privacy Policy
-          </a>
-        </small>
-      </form>
+      </div>
     </div>
   );
 };
