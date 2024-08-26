@@ -424,3 +424,12 @@ C:\Users\satish.vishwakarma\Desktop\SalesNavigator\CRM_System\CRM_System.Server\
 C:\Users\satish.vishwakarma\Desktop\SalesNavigator\CRM_System\CRM_System.Server\obj\Debug\net8.0\CRM_System.Server.pdb
 C:\Users\satish.vishwakarma\Desktop\SalesNavigator\CRM_System\CRM_System.Server\obj\Debug\net8.0\CRM_System.Server.genruntimeconfig.cache
 C:\Users\satish.vishwakarma\Desktop\SalesNavigator\CRM_System\CRM_System.Server\obj\Debug\net8.0\ref\CRM_System.Server.dll
+D:\Softude_Project\Sales-Navigator\CRM_System.Server\obj\Debug\net8.0\CRM_System.Server.csproj.AssemblyReference.cache
+D:\Softude_Project\Sales-Navigator\CRM_System.Server\obj\Debug\net8.0\spa.proxy.json
+D:\Softude_Project\Sales-Navigator\CRM_System.Server\obj\Debug\net8.0\CRM_System.Server.GeneratedMSBuildEditorConfig.editorconfig
+D:\Softude_Project\Sales-Navigator\CRM_System.Server\obj\Debug\net8.0\CRM_System.Server.AssemblyInfoInputs.cache
+D:\Softude_Project\Sales-Navigator\CRM_System.Server\obj\Debug\net8.0\CRM_System.Server.AssemblyInfo.cs
+D:\Softude_Project\Sales-Navigator\CRM_System.Server\obj\Debug\net8.0\CRM_System.Server.csproj.CoreCompileInputs.cache
+D:\Softude_Project\Sales-Navigator\CRM_System.Server\obj\Debug\net8.0\CRM_System.Server.MvcApplicationPartsAssemblyInfo.cs
+D:\Softude_Project\Sales-Navigator\CRM_System.Server\obj\Debug\net8.0\CRM_System.Server.MvcApplicationPartsAssemblyInfo.cache
+D:\Softude_Project\Sales-Navigator\CRM_System.Server\obj\Debug\net8.0\CRM_System.Server.sourcelink.json

@@ -27,8 +27,14 @@ const SignIn = () => {
     e.preventDefault();
     try {
       const response = await axios.post('https://localhost:7192/api/Users/login', formData);
-      console.log(response.data);
-      localStorage.setItem('token', response.data.token);   
+      console.log("Res.... "+JSON.stringify(response.data));
+      
+      // Store token
+      localStorage.setItem('token', response.data.token);
+      
+      // Store user data
+      localStorage.setItem('user', JSON.stringify(formData));
+      
       Swal.fire({
         title: "Sign In Successful",
         text: "Redirecting to Dashboard...",
@@ -46,7 +52,6 @@ const SignIn = () => {
         icon: "error"
       });
     }
-    console.log("SignUP CALLED>>>>>")
   };
 
   return (

@@ -99,7 +99,7 @@ namespace CRM_System.Server.Controllers
                 return Unauthorized(new { Message = "Invalid credentials" });
             }
             var token = GenerateJwtToken(user);
-            return Ok(new { Token = token });
+            return Ok(new { Token = token }, user);
         }
 
 
@@ -150,15 +150,24 @@ namespace CRM_System.Server.Controllers
         }
         private string GenerateJwtToken(User user)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            // Get the Jwt:Key from configuration
+            var key = _configuration["Jwt:Key"];
+
+            // Handle possible null value
+            if (string.IsNullOrEmpty(key))
+            {
+                throw new ArgumentNullException("Jwt:Key", "The JWT key is not configured.");
+            }
+
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.Role, user.Role)
-            };
+        new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+        new Claim(ClaimTypes.Role, user.Role)
+    };
 
             var token = new JwtSecurityToken(
                 issuer: _configuration["Jwt:Issuer"],
@@ -170,5 +179,6 @@ namespace CRM_System.Server.Controllers
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
     }
 }

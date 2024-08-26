@@ -5,7 +5,7 @@ namespace CRM_System.Server.DTOs
     public class UserRegistrationDto
     {
         public string Name { get; set; }
-        [Required]
+//        [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         public string Password { get; set; }

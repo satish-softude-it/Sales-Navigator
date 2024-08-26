@@ -5,6 +5,6 @@
     "\\CRM_System.Server\\Controllers",
     "\\CRM_System.Server\\Models"
   ],
-  "SelectedNode": "\\CRM_System.sln",
+  "SelectedNode": "\\CRM_System.Server\\Controllers\\UsersController.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -1,6 +1,20 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
 
 const Profile = () => {
+    const token =  localStorage.getItem('token');
+    const [profile, setProfile] = React.useState({});
+    const userId = localStorage.getItem('user');
+
+    useEffect(()=>{
+      const response = axios.get(`https://localhost:7192/api/Users/{userId}`,
+        {headers: {
+          'Authorization': `Bearer ${token}`
+        }}
+      )
+    })
+
+
   return (
     <form className="container my-4">
       <h3 className="mb-4">User Profile</h3>
