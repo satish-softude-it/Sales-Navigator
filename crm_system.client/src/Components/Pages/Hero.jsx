@@ -32,13 +32,13 @@ const Hero = () => {
               automate various processes.
             </p>
             <div className="d-flex">
-              <Link to="/signUp" className="text-white btn-get-started">
-                Sign Up
+              <Link to="/signIn" className="text-white btn-get-started">
+                <b>Sign In</b>
               </Link>
 
               <span className="mx-5 btn-get-going d-flex align-items-center">
-                <Link to={"/signIn"} className="text-white">
-                  Sign In
+                <Link to={"/signUp"} className="text-white">
+                  Sign Up
                 </Link>
               </span>
 

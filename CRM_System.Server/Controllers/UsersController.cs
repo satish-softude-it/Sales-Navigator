@@ -63,7 +63,11 @@ namespace CRM_System.Server.Controllers
         // POST: api/Users/register
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserRegistrationDto registrationDto)
+
         {
+            //if (!ModelState.IsValid) {
+            //    return BadRequest(ModelState);
+            //}
             if (await _crmSystem.Users.AnyAsync(u => u.Email == registrationDto.Email))
             {
                 return BadRequest(new { Message = "Email already in use" });
@@ -86,16 +90,14 @@ namespace CRM_System.Server.Controllers
             return Ok(new { Message = "User registered successfully" });
         }
 
-        // POST: api/Users/login
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] UserLoginDto loginDto)
+        public async Task<IActionResult> Login(UserLoginDto loginDto)
         {
             var user = await _crmSystem.Users.SingleOrDefaultAsync(u => u.Email == loginDto.Email);
             if (user == null || !BCrypt.Net.BCrypt.Verify(loginDto.Password, user.PasswordHash))
             {
                 return Unauthorized(new { Message = "Invalid credentials" });
             }
-
             var token = GenerateJwtToken(user);
             return Ok(new { Token = token });
         }

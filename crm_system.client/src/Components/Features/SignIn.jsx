@@ -1,11 +1,52 @@
+import axios from "axios";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
 
   const handleNavigation = (path) => (event) => {
     event.preventDefault();
     navigate(path);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('https://localhost:7192/api/Users/login', formData);
+      console.log(response.data);
+      localStorage.setItem('token', response.data.token);   
+      Swal.fire({
+        title: "Sign In Successful",
+        text: "Redirecting to Dashboard...",
+        icon: "success",
+        timer: 2000,
+        showConfirmButton: false
+      }).then(() => {
+        navigate('/dashboard');
+      });
+    } catch (error) {
+      console.error('Sign In failed:', error);
+      Swal.fire({
+        title: "Sign In Failed",
+        text: error.response?.data?.message || "Please check your credentials and try again.",
+        icon: "error"
+      });
+    }
+    console.log("SignUP CALLED>>>>>")
   };
 
   return (
@@ -14,20 +55,36 @@ const SignIn = () => {
         <div className="col-md-6 col-lg-4">
           <div className="card mt-5">
             <div className="card-body">
-              <form className="p-1">
+              <form className="p-1" onSubmit={handleSubmit}>
                 <h3 className="text-center mb-4">Sign In</h3>
 
                 <div className="form-floating mb-3">
-                  <input type="email" className="form-control" id="floatingEmail" placeholder="name@example.com" required />
+                  <input 
+                    onChange={handleInputChange}
+                    type="email" 
+                    className="form-control" 
+                    id="floatingEmail" 
+                    name="email"
+                    placeholder="name@example.com" 
+                    required 
+                  />
                   <label htmlFor="floatingEmail">Email address</label>
                 </div>
 
                 <div className="form-floating mb-3">
-                  <input type="password" className="form-control" id="floatingPassword" placeholder="Password" required />
+                  <input 
+                    onChange={handleInputChange}
+                    type="password" 
+                    className="form-control" 
+                    id="floatingPassword" 
+                    name="password"
+                    placeholder="Password" 
+                    required 
+                  />
                   <label htmlFor="floatingPassword">Password</label>
                 </div>
 
-                <button className="btn btn-primary w-100 mb-3" type="submit">Submit</button>
+                <button className="btn btn-primary w-100 mb-3" type="submit">Sign In</button>
 
                 <div className="d-flex justify-content-between mb-3" style={{fontSize:'0.9rem'}}>
                   <a href="#" onClick={handleNavigation("/forgotPassword")}>Forgot Password?</a>
