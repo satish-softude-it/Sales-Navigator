@@ -3,11 +3,7 @@ import React, { useState } from "react";
 const UpdateCustomerDetails = () => {
   // Assume we have the customer's current details
   const [customer, setCustomer] = useState({
-    name: "John Doe",
-    company: "ABC Corp",
-    email: "john.doe@abccorp.com",
-    phone: "123-456-7890",
-    address: "123 Main St, Anytown, USA",
+
   });
 
   const handleInputChange = (e) => {
@@ -18,6 +14,7 @@ const UpdateCustomerDetails = () => {
     }));
   };
 
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     // Here you would typically send the updated customer data to your backend

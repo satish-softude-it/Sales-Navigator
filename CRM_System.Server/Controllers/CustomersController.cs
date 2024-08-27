@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -33,13 +34,12 @@ namespace CRM_System.Server.Controllers
         public async Task<ActionResult<Customer>> GetCustomerById(int id)
         {
             var customer = await _context.Customers.FindAsync(id);
-
             if (customer == null)
-                return NotFound(); // Use NotFound() to indicate that the resource was not found.
-
+                return NotFound();
             return Ok(customer);
         }
 
+        // POST: api/Customers
         [HttpPost]
         [Authorize]
         public async Task<ActionResult<Customer>> AddCustomer(Customer custObj)
@@ -48,12 +48,10 @@ namespace CRM_System.Server.Controllers
             {
                 return BadRequest("Customer object is null.");
             }
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
             try
             {
                 _context.Customers.Add(custObj);
@@ -70,6 +68,50 @@ namespace CRM_System.Server.Controllers
             }
         }
 
+        // PUT: api/Customers/{id}
+        [HttpPut("{id}")]
+        [Authorize]
+        public async Task<ActionResult<Customer>> UpdateCustomer(int id, Customer custObj)
+        {
+            if (id != custObj.CustomerId)
+            {
+                return BadRequest("Customer ID mismatch.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _context.Entry(custObj).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CustomerExists(id))
+                {
+                    return NotFound($"Customer with ID {id} not found.");
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception details here
+                return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while updating the customer: {ex.Message}");
+            }
+
+            // Fetch the updated customer from the database
+            var updatedCustomer = await _context.Customers.FindAsync(id);
+            return Ok(updatedCustomer);
+        }
+
+        // DELETE: api/Customers/{id}
         [HttpDelete("{id}")]
         [Authorize]
         public async Task<ActionResult<Customer>> RemoveCustomer(int id)
@@ -78,20 +120,19 @@ namespace CRM_System.Server.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             var customer = await _context.Customers.FindAsync(id);
             if (customer == null)
             {
                 return NotFound("Customer not found.");
             }
-
             _context.Customers.Remove(customer);
-
             await _context.SaveChangesAsync();
-
             return Ok("Customer removed successfully.");
         }
 
-
+        private bool CustomerExists(int id)
+        {
+            return _context.Customers.Any(e => e.CustomerId == id);
+        }
     }
 }

@@ -6,6 +6,6 @@
     "\\CRM_System.Server\\DTOs",
     "\\CRM_System.Server\\Models"
   ],
-  "SelectedNode": "\\CRM_System.sln",
+  "SelectedNode": "\\CRM_System.Server\\Controllers\\CustomersController.cs",
   "PreviewInSolutionExplorer": false
 }

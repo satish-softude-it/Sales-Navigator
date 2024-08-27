@@ -72,13 +72,16 @@ const Dashboard = () => {
                 className="nav flex-column ms-3 show default-bullet"
                 id="functionalitySubmenu"
               >
-                {["Add", "Delete", "Update", "Read"].map((action) => (
+                {["Add", "Delete", "Update"].map((action) => (
                   <li className="nav-item" key={action}>
                     <a
                       href="#"
                       className="nav-link text-white"
                       onClick={() => handleNavigation(action.toLowerCase())}
-                    >
+                      >
+                      {action.toLowerCase()=='add' && <i className="bi bi-person-plus me-2"></i>}
+                      {action.toLowerCase()=='delete' && <i className="bi bi-person-x me-2"></i>}
+                      {action.toLowerCase()=='update' && <i className="bi bi-pencil-square me-2"></i>}
                       {action}
                     </a>
                   </li>

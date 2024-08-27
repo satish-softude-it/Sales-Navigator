@@ -11,9 +11,9 @@ public partial class Report
 
     public string ReportType { get; set; } = null!;
 
-    public DateTime? GeneratedAt { get; set; }
-
     public string? ReportData { get; set; }
+
+    public DateTime? CreatedAt { get; set; }
 
     public virtual User? User { get; set; }
 }

@@ -9,6 +9,7 @@ import Home from "./Components/Pages/Home";
 import About from "./Components/Pages/About";
 import Contact from "./Components/Pages/Contact";
 import Dashboard from "./Components/Pages/Dashboard";
+import Profile from "./Components/Pages/Profile";
 
 function App() {
   return (

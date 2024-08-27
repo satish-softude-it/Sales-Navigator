@@ -61,7 +61,6 @@ const Profile = () => {
         title: "Success",
         text: "Profile updated successfully",
       });
-      // Update local storage with new data
       const updatedUser = { ...user, ...profileData };
       localStorage.setItem("user", JSON.stringify(updatedUser));
     } catch (err) {
@@ -71,8 +70,6 @@ const Profile = () => {
         title: "Oops...",
         text: "Failed to update profile",
       });
-    } finally {
-      console.log(user);
     }
   };
 
@@ -128,19 +125,20 @@ const Profile = () => {
         <button
           type="submit"
           className="btn btn-warning mb-2 mb-md-0"
-          disabled={false}
         >
-          Save Changes
+          Update Changes
         </button>
-        <button type="button" className="btn btn-info" disabled={false} onClick={()=>{
+        <button 
+          type="button" 
+          className="btn btn-info" 
+          onClick={()=>{
             Swal.fire({
               icon: "info",
-              title: "working on it!",
-              text: "thankyou for....",
+              title: "Reset to Original",
+              text: "This feature is currently in development.",
             });
         }}>
-          <i className="fa fa-lock" aria-hidden="true"></i> &nbsp; Reset
-          Password
+          <i className="fa fa-lock" aria-hidden="true"></i> &nbsp; Reset to Original
         </button>
       </div>
     </form>

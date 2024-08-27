@@ -17,9 +17,7 @@ public partial class User
 
     public DateTime? CreatedAt { get; set; }
 
-    public virtual ICollection<Customer> CustomerCreatedByNavigations { get; set; } = new List<Customer>();
-
-    public virtual ICollection<Customer> CustomerUpdatedByNavigations { get; set; } = new List<Customer>();
+    public DateTime? UpdatedAt { get; set; }
 
     public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
 }
