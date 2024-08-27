@@ -23,7 +23,7 @@ namespace CRM_System.Server.Controllers
             return await _context.Users.ToListAsync();
         }
 
-        // GET: api/Users/5
+        //GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
@@ -37,8 +37,8 @@ namespace CRM_System.Server.Controllers
             return user;
         }
 
-        // POST: api/Users
-        [HttpPost]
+         //POST: api/Users
+       [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
             if (await _context.Users.AnyAsync(u => u.Email == user.Email))

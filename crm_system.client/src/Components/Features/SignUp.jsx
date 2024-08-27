@@ -66,7 +66,7 @@ const SignUp = () => {
       console.error('Registration failed:', error);
       Swal.fire({
         title: "Oops!",
-        text: "Registration failed. Please try again.",
+        text: error.response?.data?.message || 'An error occurred. Please try again.',
         icon: "error"
       });
     }
@@ -78,7 +78,7 @@ const SignUp = () => {
         <div className="col-md-6 col-lg-4">
           <div className="card mt-5">
             <div className="card-body">
-              <form className="p-1" onSubmit={handleSubmit}>
+              <form className="p-3" onSubmit={handleSubmit}>
                 <h3 className="text-center mb-4">Sign Up</h3>
 
                 <div className="d-flex justify-content-around mb-3">
@@ -89,7 +89,7 @@ const SignUp = () => {
                 <div className="text-center text-muted mb-3">OR</div>
 
                 <div className="form-floating mb-3">
-                  <select name="role" value={formState.role} onChange={handleChange} required className="form-select" id="floatingRole">
+                  <select name="role" value={formState.role} onChange={handleChange} className="form-select" id="floatingRole">
                     <option value="" disabled>Select a role</option>
                     <option value="admin">Admin</option>
                     <option value="sales manager">Sales Manager</option>
@@ -101,25 +101,25 @@ const SignUp = () => {
                 </div>
 
                 <div className="form-floating mb-3">
-                  <input name="name" value={formState.name} onChange={handleChange} type="text" className="form-control" id="floatingName" placeholder="Full Name" required />
+                  <input name="name" value={formState.name} onChange={handleChange} type="text" className="form-control" id="floatingName" placeholder="Full Name" />
                   <label htmlFor="floatingName">Full Name</label>
                   {errors.name && <div className="text-danger">{errors.name}</div>}
                 </div>
 
                 <div className="form-floating mb-3">
-                  <input name="email" value={formState.email} onChange={handleChange} type="email" className="form-control" id="floatingEmail" placeholder="name@example.com" required />
+                  <input name="email" value={formState.email} onChange={handleChange} type="email" className="form-control" id="floatingEmail" placeholder="name@example.com" />
                   <label htmlFor="floatingEmail">Email address</label>
                   {errors.email && <div className="text-danger">{errors.email}</div>}
                 </div>
 
                 <div className="form-floating mb-3">
-                  <input name="password" value={formState.password} onChange={handleChange} type="password" className="form-control" id="floatingPassword" placeholder="Password" required />
+                  <input name="password" value={formState.password} onChange={handleChange} type="password" className="form-control" id="floatingPassword" placeholder="Password" />
                   <label htmlFor="floatingPassword">Password</label>
                   {errors.password && <div className="text-danger">{errors.password}</div>}
                 </div>
 
                 <div className="form-floating mb-3">
-                  <input name="confirmPassword" value={formState.confirmPassword} onChange={handleChange} type="password" className="form-control" id="floatingConfirmPassword" placeholder="Confirm Password" required />
+                  <input name="confirmPassword" value={formState.confirmPassword} onChange={handleChange} type="password" className="form-control" id="floatingConfirmPassword" placeholder="Confirm Password" />
                   <label htmlFor="floatingConfirmPassword">Confirm Password</label>
                   {errors.confirmPassword && <div className="text-danger">{errors.confirmPassword}</div>}
                 </div>
@@ -133,7 +133,7 @@ const SignUp = () => {
 
                 <small className="d-block text-center text-muted mt-3" style={{fontSize:'0.8rem'}}>
                   By signing up, you agree to our{" "}
-                  <a href="https://crmservice.com/privacy-policy/">Terms of Service and Privacy Policy</a>.
+                  <a href="https://crmservice.com/privacy-policy/" target="_blank" rel="noopener noreferrer">Terms of Service and Privacy Policy</a>.
                 </small>
               </form>
             </div>

@@ -4541,23 +4541,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\satis\\.nuget\\packages\\": {},
+    "C:\\Users\\satish.vishwakarma\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Softude_Project\\Sales-Navigator\\CRM_System.Server\\CRM_System.Server.csproj",
+      "projectUniqueName": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\CRM_System.Server.csproj",
       "projectName": "CRM_System.Server",
-      "projectPath": "D:\\Softude_Project\\Sales-Navigator\\CRM_System.Server\\CRM_System.Server.csproj",
-      "packagesPath": "C:\\Users\\satis\\.nuget\\packages\\",
-      "outputPath": "D:\\Softude_Project\\Sales-Navigator\\CRM_System.Server\\obj\\",
+      "projectPath": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\CRM_System.Server.csproj",
+      "packagesPath": "C:\\Users\\satish.vishwakarma\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\satis\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\satish.vishwakarma\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4646,7 +4646,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.304/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

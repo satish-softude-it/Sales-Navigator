@@ -27,6 +27,32 @@ namespace CRM_System.Server.Controllers
             _configuration = configuration;
         }
 
+
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult> GetUserRole(int id)
+        //{
+        //    if (id <= 0)
+        //    {
+        //        return BadRequest("Id must be a positive integer.");
+        //    }
+
+        //    var user = await _crmSystem.Users.FindAsync(id);
+        //    if (user == null)
+        //    {
+        //        return NotFound("User does not exist.");
+        //    }
+
+        //    var role = user.Role;
+
+        //    if (role == null)
+        //    {
+        //        return NotFound("Role not found for the user.");
+        //    }
+
+        //    return Ok(role);
+        //}
+
+
         [HttpGet]
         public ActionResult GetCustomerData()
         {
@@ -34,7 +60,7 @@ namespace CRM_System.Server.Controllers
             return Ok(data);
         }
 
-          // POST: api/Users
+        // POST: api/Users
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] User newUser)
         {
@@ -93,13 +119,28 @@ namespace CRM_System.Server.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserLoginDto loginDto)
         {
-            var user = await _crmSystem.Users.SingleOrDefaultAsync(u => u.Email == loginDto.Email);
+            var user = await _crmSystem.Users
+                .SingleOrDefaultAsync(u => u.Email == loginDto.Email);
+
             if (user == null || !BCrypt.Net.BCrypt.Verify(loginDto.Password, user.PasswordHash))
             {
                 return Unauthorized(new { Message = "Invalid credentials" });
             }
+
             var token = GenerateJwtToken(user);
-            return Ok(new { Token = token }, user);
+            var userResponse = new
+            {
+                user.UserId,
+                user.Role,
+                user.Email,
+                user.Name,
+            };
+
+            return Ok(new
+            {
+                Token = token,
+                User = userResponse
+            });
         }
 
 
@@ -114,7 +155,7 @@ namespace CRM_System.Server.Controllers
                 return NotFound(new { Message = "User not found" });
             }
 
-            var userDto = new 
+            var userDto = new
             {
                 UserId = user.UserId,
                 Name = user.Name,
@@ -137,7 +178,7 @@ namespace CRM_System.Server.Controllers
                 return NotFound(new { Message = "User not found" });
             }
 
-            var userDto = new 
+            var userDto = new
             {
                 UserId = user.UserId,
                 Name = user.Name,
@@ -148,6 +189,55 @@ namespace CRM_System.Server.Controllers
 
             return Ok(user);
         }
+
+        [HttpPut("{id}")]
+        [Authorize]
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] UserUpdateDto updateDto)
+        {
+            if (updateDto == null)
+            {
+                return BadRequest("Update data is null.");
+            }
+
+            // Find the user by ID
+            var user = await _crmSystem.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound(new { Message = "User not found" });
+            }
+
+            // Update user properties
+            user.Name = updateDto.Name ?? user.Name;
+            user.Email = updateDto.Email ?? user.Email;
+            //user.Role = updateDto.Role ?? user.Role;
+
+            try
+            {
+                _crmSystem.Users.Update(user);
+                await _crmSystem.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(id))
+                {
+                    return NotFound(new { Message = "User not found" });
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(new { Message = "User updated successfully" });
+        }
+
+        // Helper method to check if user exists
+        private bool UserExists(int id)
+        {
+            return _crmSystem.Users.Any(e => e.UserId == id);
+        }
+
+
         private string GenerateJwtToken(User user)
         {
             // Get the Jwt:Key from configuration

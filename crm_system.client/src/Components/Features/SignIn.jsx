@@ -27,13 +27,13 @@ const SignIn = () => {
     e.preventDefault();
     try {
       const response = await axios.post('https://localhost:7192/api/Users/login', formData);
-      console.log("Res.... "+JSON.stringify(response.data));
+      console.log("Response : "+JSON.stringify(response.data));
       
       // Store token
       localStorage.setItem('token', response.data.token);
       
-      // Store user data
-      localStorage.setItem('user', JSON.stringify(formData));
+        // Store user data
+        localStorage.setItem('user', JSON.stringify(response.data.user));
       
       Swal.fire({
         title: "Sign In Successful",
