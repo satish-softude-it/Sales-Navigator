@@ -4,7 +4,7 @@ import React from "react";
 
 const Report = () => {
   return (
-    <div className="" style={{border:'1px solid red', }}>
+    <div className="w-50" style={{border:'1px solid red', }}>
       <CChart
         type="doughnut"
         data={{

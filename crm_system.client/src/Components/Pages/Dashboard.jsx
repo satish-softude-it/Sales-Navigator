@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Profile from "./Profile";
 import CustomerList from "./CustomerList";
@@ -7,13 +7,41 @@ import "./Dashboard.css";
 import DeleteCustomerDetails from "../CrudOperation/Delete";
 import UpdateCustomerDetails from "../CrudOperation/Update";
 import AddCustomerDetails from "../CrudOperation/Create";
+import Swal from "sweetalert2";
+import GenerateReport from "../CrudOperation/GenerateReport";
 
 const Dashboard = () => {
-  const [activePage, setActivePage] = useState(null);
+  const [access, setAccess] = useState(false);
+  const [activePage, setActivePage] = useState('report');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    handleAccessByRole();
+  }, []);
+
+  const handleAccessByRole = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const role = user.role;
+    if (role !== "admin" && role !== "sales manager") {
+      setAccess(false);
+    } else {
+      setAccess(true);
+    }
+  };
+
   const handleNavigation = (page) => {
+      if (!access && (page === "delete" || page === "generateReport")) {
+        // alert("Permission denied. Contact admin or sales representative.");
+        Swal.fire({
+            title: "Oops! Permission denied",
+            text: 'Contact admin or sales representative.',
+            icon: "error"
+          });    
+        
+        return;
+      }
+
     setActivePage(page);
     setIsSidebarOpen(false);
   };
@@ -43,6 +71,7 @@ const Dashboard = () => {
 
           <ul className="nav flex-column">
             <NavItem
+            
               label="Dashboard"
               icon="bi-speedometer2"
               onClick={() => handleNavigation("report")}
@@ -51,11 +80,6 @@ const Dashboard = () => {
               label="Profile"
               icon="bi-person"
               onClick={() => handleNavigation("profile")}
-            />
-            <NavItem
-              label="Customer List"
-              icon="bi-table"
-              onClick={() => handleNavigation("customerList")}
             />
 
             <li className="nav-item mb-2">
@@ -72,20 +96,31 @@ const Dashboard = () => {
                 className="nav flex-column ms-3 show default-bullet"
                 id="functionalitySubmenu"
               >
-                {["Add", "Delete", "Update"].map((action) => (
-                  <li className="nav-item" key={action}>
-                    <a
-                      href="#"
-                      className="nav-link text-white"
-                      onClick={() => handleNavigation(action.toLowerCase())}
-                      >
-                      {action.toLowerCase()=='add' && <i className="bi bi-person-plus me-2"></i>}
-                      {action.toLowerCase()=='delete' && <i className="bi bi-person-x me-2"></i>}
-                      {action.toLowerCase()=='update' && <i className="bi bi-pencil-square me-2"></i>}
-                      {action}
-                    </a>
-                  </li>
-                ))}
+                <NavItem
+                  label="Add Customer"
+                  icon="bi-person-plus"
+                  onClick={() => handleNavigation("add")}
+                />
+                <NavItem
+                  label="Delete Customer"
+                  icon="bi-person-x"
+                  onClick={() => handleNavigation("delete")}
+                />
+                <NavItem
+                  label="Update Customer"
+                  icon="bi-pencil-square"
+                  onClick={() => handleNavigation("update")}
+                />
+                <NavItem
+                  label="Customer List"
+                  icon="bi-table"
+                  onClick={() => handleNavigation("customerList")}
+                />
+                <NavItem
+                  label="Generate Report"
+                  icon="bi-clipboard-data"
+                  onClick={() => handleNavigation("generateReport")}
+                />
               </ul>
             </li>
           </ul>
@@ -114,12 +149,12 @@ const Dashboard = () => {
 
         <div className="content p-3">
           {activePage === "profile" && <Profile />}
-          {activePage === "customerList" && <CustomerList />}
           {activePage === "report" && <Report />}
-          {activePage === "add" && <AddCustomerDetails />}{" "}
+          {activePage === "customerList" && <CustomerList />}
+          {activePage === "generateReport" && <GenerateReport />}
+          {activePage === "add" && <AddCustomerDetails />}
           {activePage === "delete" && <DeleteCustomerDetails />}
           {activePage === "update" && <UpdateCustomerDetails />}
-          {/* {activePage === "read" && <ReadCustomerDetails />}{" "} */}
         </div>
       </div>
     </div>
