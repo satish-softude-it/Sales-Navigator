@@ -89,18 +89,23 @@ namespace CRM_System.Server.Controllers
         // POST: api/Users/register
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserRegistrationDto registrationDto)
-
         {
-            //if (!ModelState.IsValid) {
-            //    return BadRequest(ModelState);
-            //}
+            // Validate model state
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Check if the email is already in use
             if (await _crmSystem.Users.AnyAsync(u => u.Email == registrationDto.Email))
             {
                 return BadRequest(new { Message = "Email already in use" });
             }
 
+            // Hash the password
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(registrationDto.Password);
 
+            // Create the user
             var user = new User
             {
                 Name = registrationDto.Name,
@@ -110,24 +115,45 @@ namespace CRM_System.Server.Controllers
                 CreatedAt = DateTime.UtcNow
             };
 
-            _crmSystem.Users.Add(user);
-            await _crmSystem.SaveChangesAsync();
+            try
+            {
+                // Add the user to the database
+                _crmSystem.Users.Add(user);
+                await _crmSystem.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                // Log the exception (you might want to use a logging framework here)
+                return StatusCode(500, new { Message = "An error occurred while registering the user.", Details = ex.Message });
+            }
 
             return Ok(new { Message = "User registered successfully" });
         }
 
+        // POST: api/Users/login
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserLoginDto loginDto)
+        public async Task<IActionResult> Login([FromBody] UserLoginDto loginDto)
         {
+            // Validate model state
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Find the user by email
             var user = await _crmSystem.Users
                 .SingleOrDefaultAsync(u => u.Email == loginDto.Email);
 
+            // Check if the user exists and the password is correct
             if (user == null || !BCrypt.Net.BCrypt.Verify(loginDto.Password, user.PasswordHash))
             {
                 return Unauthorized(new { Message = "Invalid credentials" });
             }
 
+            // Generate JWT token
             var token = GenerateJwtToken(user);
+
+            // Create the response object
             var userResponse = new
             {
                 user.UserId,
@@ -142,7 +168,6 @@ namespace CRM_System.Server.Controllers
                 User = userResponse
             });
         }
-
 
         // GET: api/Users/{id}
         [HttpGet("{id}")]

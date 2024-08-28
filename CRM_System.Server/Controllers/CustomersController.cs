@@ -66,6 +66,7 @@ namespace CRM_System.Server.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while adding the customer: {ex.Message}");
             }
+            return Ok();
         }
 
         // PUT: api/Customers/{id}

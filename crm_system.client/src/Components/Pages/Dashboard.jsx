@@ -12,10 +12,16 @@ import GenerateReport from "../CrudOperation/GenerateReport";
 
 const Dashboard = () => {
   const [access, setAccess] = useState(false);
-  const [activePage, setActivePage] = useState('report');
+  const [activePage, setActivePage] = useState("report");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
+  const [reportGenerated, setReportGenerated] = useState(false);
+
+  const handleReportGenerated = () => {
+    setReportGenerated(true);
+  };
+  
   useEffect(() => {
     handleAccessByRole();
   }, []);
@@ -23,7 +29,7 @@ const Dashboard = () => {
   const handleAccessByRole = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     const role = user.role;
-    if (role !== "admin" && role !== "sales manager") {
+    if (role !== "admin" && role !== "sales_manager") {
       setAccess(false);
     } else {
       setAccess(true);
@@ -31,16 +37,15 @@ const Dashboard = () => {
   };
 
   const handleNavigation = (page) => {
-      if (!access && (page === "delete" || page === "generateReport")) {
-        // alert("Permission denied. Contact admin or sales representative.");
-        Swal.fire({
-            title: "Oops! Permission denied",
-            text: 'Contact admin or sales representative.',
-            icon: "error"
-          });    
-        
-        return;
-      }
+    if (!access && (page === "delete" || page === "generateReport")) {
+      // alert("Permission denied. Contact admin or sales representative.");
+      Swal.fire({
+        title: "Oops! Permission denied",
+        text: "Contact admin or sales representative.",
+        icon: "error",
+      });
+      return;
+    }
 
     setActivePage(page);
     setIsSidebarOpen(false);
@@ -71,7 +76,6 @@ const Dashboard = () => {
 
           <ul className="nav flex-column">
             <NavItem
-            
               label="Dashboard"
               icon="bi-speedometer2"
               onClick={() => handleNavigation("report")}
@@ -121,6 +125,12 @@ const Dashboard = () => {
                   icon="bi-clipboard-data"
                   onClick={() => handleNavigation("generateReport")}
                 />
+                <NavItem
+                  label="Interaction"
+                  icon="bi bi-chat-dots"
+                  // onClick={() => }
+                  href="mailto:example@example.com"
+                />
               </ul>
             </li>
           </ul>
@@ -147,6 +157,7 @@ const Dashboard = () => {
           </div>
         </nav>
 
+
         <div className="content p-3">
           {activePage === "profile" && <Profile />}
           {activePage === "report" && <Report />}
@@ -161,9 +172,25 @@ const Dashboard = () => {
   );
 };
 
+const mailtoLink = (label) => {
+  if (label === "Interaction") {
+    const to = "satish.vishwakarma.it@gmail.com";
+    const subject = encodeURIComponent("Interaction Request");
+    const body = encodeURIComponent("Hello,\n\nI would like to discuss an interaction.\n\nThank you!");
+    
+    // Construct the Gmail compose link
+    return `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subject}&body=${body}`;
+  }
+  return "#";
+};
+
 const NavItem = ({ label, icon, onClick }) => (
   <li className="nav-item mb-2">
-    <a href="#" className="nav-link text-white" onClick={onClick}>
+    <a
+      href={mailtoLink(label)}
+      className="nav-link text-white"
+      onClick={onClick}
+    >
       <i className={`bi ${icon} me-2`}></i>
       {label}
     </a>

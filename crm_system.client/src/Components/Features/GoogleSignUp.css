@@ -1,0 +1,16 @@
+.btn-google {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #000;
+    border-radius: 4px;
+    font-size: 16px;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+}
+.btn-google i {
+    margin-right: 8px;
+    color: #4285F4; /* Google's blue color */
+}

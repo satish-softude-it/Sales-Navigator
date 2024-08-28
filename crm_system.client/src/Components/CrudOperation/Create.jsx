@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 const AddCustomerDetails = () => {
@@ -13,9 +13,41 @@ const AddCustomerDetails = () => {
     zipCode: "",
     country: ""
   });
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    fetchProfileData();
+  }, []);
+
+  const fetchProfileData = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get(
+        `https://localhost:7192/api/Customers`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.data.length > 0) {
+        setFormData(response.data[0]);
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Failed to fetch profile data");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Failed to fetch profile data",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,25 +65,14 @@ const AddCustomerDetails = () => {
       Swal.fire({
         icon: "success",
         title: "Success",
-        text: "Customer added successfully",
-      });
-      // Optionally, reset form data
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        address: "",
-        city: "",
-        state: "",
-        zipCode: "",
-        country: ""
+        text: "Profile updated successfully",
       });
     } catch (err) {
-      console.error(err);
+      console.error("Submission Error:", err.response ? err.response.data : err.message);
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: err.response?.data?.message || "Failed to add customer",
+        text: err.response ? err.response.data : "Failed to update profile",
       });
     }
   };
@@ -64,6 +85,22 @@ const AddCustomerDetails = () => {
     }));
   };
 
+  const handleReset = () => {
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      address: "",
+      city: "",
+      state: "",
+      zipCode: "",
+      country: ""
+    });
+  };
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
     <form className="container my-4" onSubmit={handleSubmit}>
       <h3 className="mb-4">Add Customer Details</h3>
@@ -75,7 +112,6 @@ const AddCustomerDetails = () => {
             name="name"
             className="form-control"
             placeholder="Enter customer name"
-            value={formData.name}
             onChange={handleChange}
           />
         </div>
@@ -86,7 +122,6 @@ const AddCustomerDetails = () => {
             name="email"
             className="form-control"
             placeholder="name@company.com"
-            value={formData.email}
             onChange={handleChange}
           />
         </div>
@@ -99,7 +134,6 @@ const AddCustomerDetails = () => {
             name="phone"
             className="form-control"
             placeholder="Enter phone number"
-            value={formData.phone}
             onChange={handleChange}
           />
         </div>
@@ -110,7 +144,7 @@ const AddCustomerDetails = () => {
             className="form-control"
             rows="3"
             placeholder="Enter customer address"
-            value={formData.address}
+      
             onChange={handleChange}
           ></textarea>
         </div>
@@ -123,7 +157,6 @@ const AddCustomerDetails = () => {
             name="city"
             className="form-control"
             placeholder="Enter city"
-            value={formData.city}
             onChange={handleChange}
           />
         </div>
@@ -134,7 +167,6 @@ const AddCustomerDetails = () => {
             name="state"
             className="form-control"
             placeholder="Enter state"
-            value={formData.state}
             onChange={handleChange}
           />
         </div>
@@ -147,7 +179,6 @@ const AddCustomerDetails = () => {
             name="zipCode"
             className="form-control"
             placeholder="Enter zip code"
-            value={formData.zipCode}
             onChange={handleChange}
           />
         </div>
@@ -158,7 +189,6 @@ const AddCustomerDetails = () => {
             name="country"
             className="form-control"
             placeholder="Enter country"
-            value={formData.country}
             onChange={handleChange}
           />
         </div>
@@ -167,20 +197,7 @@ const AddCustomerDetails = () => {
         <button type="submit" className="btn btn-primary mb-2 mb-md-0">
           Add Customer
         </button>
-        <button
-          type="button"
-          className="btn btn-secondary"
-          onClick={() => setFormData({
-            name: "",
-            email: "",
-            phone: "",
-            address: "",
-            city: "",
-            state: "",
-            zipCode: "",
-            country: ""
-          })}
-        >
+        <button type="button" className="btn btn-secondary" onClick={handleReset}>
           Clear Form
         </button>
       </div>

@@ -9,7 +9,8 @@ import Home from "./Components/Pages/Home";
 import About from "./Components/Pages/About";
 import Contact from "./Components/Pages/Contact";
 import Dashboard from "./Components/Pages/Dashboard";
-import Profile from "./Components/Pages/Profile";
+import GoogleSignIn from "./Components/Features/GoogleSignUp";
+import OTPVerification from "./Components/Features/OTPVerification";
 
 function App() {
   return (
@@ -26,7 +27,8 @@ function App() {
           {/*---------------- Features --------------------*/}
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
-          <Route path="/forgotPassword" element={<ForgotPassword />} />
+          <Route path="/forgotPassword" element={<OTPVerification />} />
+          <Route path="/googlesignin" element={<GoogleSignIn/>}/>
         </Routes>
       </Router>
     </>
