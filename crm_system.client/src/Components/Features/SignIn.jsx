@@ -39,7 +39,7 @@ const SignIn = () => {
         title: "Sign In Successful",
         text: "Redirecting to Dashboard...",
         icon: "success",
-        timer: 1300,
+        timer: 300,
         showConfirmButton: false
       }).then(() => {
         navigate('/dashboard');

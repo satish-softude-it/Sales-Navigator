@@ -29,7 +29,7 @@ public partial class CrmSystemDbContext : DbContext
     {
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.HasKey(e => e.CustomerId).HasName("PK__Customer__A4AE64B82F56A4AC");
+            entity.HasKey(e => e.CustomerId).HasName("PK__Customer__A4AE64B84273B3C0");
 
             entity.ToTable("Customers", "dbo");
 
@@ -67,16 +67,16 @@ public partial class CrmSystemDbContext : DbContext
 
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.CustomerCreatedByNavigations)
                 .HasForeignKey(d => d.CreatedBy)
-                .HasConstraintName("FK__Customers__Creat__76969D2E");
+                .HasConstraintName("FK__Customers__Creat__5070F446");
 
             entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.CustomerUpdatedByNavigations)
                 .HasForeignKey(d => d.UpdatedBy)
-                .HasConstraintName("FK__Customers__Updat__778AC167");
+                .HasConstraintName("FK__Customers__Updat__5165187F");
         });
 
         modelBuilder.Entity<Report>(entity =>
         {
-            entity.HasKey(e => e.ReportId).HasName("PK__Reports__D5BD48E59AA5D6A7");
+            entity.HasKey(e => e.ReportId).HasName("PK__Reports__D5BD48E5F32FDDE6");
 
             entity.ToTable("Reports", "dbo");
 
@@ -89,16 +89,16 @@ public partial class CrmSystemDbContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.Reports)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Reports__UserID__5441852A");
+                .HasConstraintName("FK__Reports__UserID__5629CD9C");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC7C6C9D36");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCACA6381BED");
 
             entity.ToTable("Users", "dbo");
 
-            entity.HasIndex(e => e.Email, "UQ__Users__A9D105344649BA5D").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Users__A9D105348E242D99").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("UserID");
             entity.Property(e => e.CreatedAt)

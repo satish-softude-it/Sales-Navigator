@@ -22,7 +22,7 @@ namespace CRM_System.Server.Controllers
         // GET: api/Customers
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomerList()
+        public async Task<ActionResult<Customer>> GetCustomerList()
         {
             var customers = await _context.Customers.ToListAsync();
             return Ok(customers);
@@ -35,7 +35,7 @@ namespace CRM_System.Server.Controllers
         {
             var customer = await _context.Customers.FindAsync(id);
             if (customer == null)
-                return NotFound();
+                return NotFound("Customer Id does not exists!");
             return Ok(customer);
         }
 
@@ -44,29 +44,28 @@ namespace CRM_System.Server.Controllers
         [Authorize]
         public async Task<ActionResult<Customer>> AddCustomer(Customer custObj)
         {
-            if (custObj == null)
-            {
-                return BadRequest("Customer object is null.");
-            }
-            if (!ModelState.IsValid)
+            if (custObj == null || !ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
             try
             {
                 _context.Customers.Add(custObj);
+
                 await _context.SaveChangesAsync();
-                return CreatedAtAction(nameof(GetCustomerById), new { id = custObj.CustomerId }, custObj);
+
+                return Ok(new { Message = "User registered successfully" });
             }
             catch (DbUpdateException dbEx)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Database update error: {dbEx.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while saving the customer. Please check the server logs for more details.");
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while adding the customer: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred. Please check the server logs for more details.");
             }
-            return Ok();
+
         }
 
         // PUT: api/Customers/{id}
@@ -103,11 +102,8 @@ namespace CRM_System.Server.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception details here
                 return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while updating the customer: {ex.Message}");
             }
-
-            // Fetch the updated customer from the database
             var updatedCustomer = await _context.Customers.FindAsync(id);
             return Ok(updatedCustomer);
         }

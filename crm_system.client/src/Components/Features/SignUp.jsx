@@ -53,7 +53,7 @@ const SignUp = () => {
       console.error("Error decoding token: ", error);
       Swal.fire({
         title: "Error",
-        text: "Failed to process Google sign up. Please try again.",
+        text: error? error.response.data : "Failed to process Google sign up. Please try again.",
         icon: "error",
       });
     }
@@ -131,7 +131,7 @@ const SignUp = () => {
                     required
                   >
                     <option value="" disabled>Select a role</option>
-                    <option value="admin">Admin</option>
+                    {/* <option value="admin">Admin</option> */}
                     <option value="sales_manager">Sales Manager</option>
                     <option value="sales_representative">Sales Representative</option>
                     <option value="support_representative">Sales Support</option>

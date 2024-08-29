@@ -1,9 +1,12 @@
+import React, { useState, useCallback } from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 const AddCustomerDetails = () => {
-  const [formData, setFormData] = useState({
+  const token = localStorage.getItem("token");
+  const { userId } = JSON.parse(localStorage.getItem('user') || '{}');
+
+  const initialFormState = {
     name: "",
     email: "",
     phone: "",
@@ -11,53 +14,35 @@ const AddCustomerDetails = () => {
     city: "",
     state: "",
     zipCode: "",
-    country: ""
-  });
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const token = localStorage.getItem("token");
-
-  useEffect(() => {
-    fetchProfileData();
-  }, []);
-
-  const fetchProfileData = async () => {
-    setIsLoading(true);
-    try {
-      const response = await axios.get(
-        `https://localhost:7192/api/Customers`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response.data.length > 0) {
-        setFormData(response.data[0]);
-      }
-    } catch (err) {
-      console.error(err);
-      setError("Failed to fetch profile data");
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Failed to fetch profile data",
-      });
-    } finally {
-      setIsLoading(false);
-    }
+    country: "",
+    createdBy: userId,
+    dateCreated: new Date().toISOString(),
+    updatedBy: null,
+    updatedAt: null
   };
+
+  const [formData, setFormData] = useState(initialFormState);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     try {
       const response = await axios.post(
-        `https://localhost:7192/api/Customers/`,
+        `https://localhost:7192/api/Customers`,
         formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
           },
         }
       );
@@ -65,41 +50,22 @@ const AddCustomerDetails = () => {
       Swal.fire({
         icon: "success",
         title: "Success",
-        text: "Profile updated successfully",
+        text: "Customer added successfully",
       });
+      setFormData(initialFormState);  // Reset form after successful submission
     } catch (err) {
       console.error("Submission Error:", err.response ? err.response.data : err.message);
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: err.response ? err.response.data : "Failed to update profile",
+        text: err.response ? err.response.data : "Failed to add customer",
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleReset = () => {
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      address: "",
-      city: "",
-      state: "",
-      zipCode: "",
-      country: ""
-    });
-  };
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  const handleReset = () => setFormData(initialFormState);
 
   return (
     <form className="container my-4" onSubmit={handleSubmit}>
@@ -112,7 +78,9 @@ const AddCustomerDetails = () => {
             name="name"
             className="form-control"
             placeholder="Enter customer name"
+            value={formData.name}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="col-md-6">
@@ -122,7 +90,9 @@ const AddCustomerDetails = () => {
             name="email"
             className="form-control"
             placeholder="name@company.com"
+            value={formData.email}
             onChange={handleChange}
+            required
           />
         </div>
       </div>
@@ -131,9 +101,10 @@ const AddCustomerDetails = () => {
           <label className="form-label">Phone:</label>
           <input
             type="tel"
-            name="phone"
+            name="tel"
             className="form-control"
             placeholder="Enter phone number"
+            value={formData.phone}
             onChange={handleChange}
           />
         </div>
@@ -144,7 +115,7 @@ const AddCustomerDetails = () => {
             className="form-control"
             rows="3"
             placeholder="Enter customer address"
-      
+            value={formData.address}
             onChange={handleChange}
           ></textarea>
         </div>
@@ -157,6 +128,7 @@ const AddCustomerDetails = () => {
             name="city"
             className="form-control"
             placeholder="Enter city"
+            value={formData.city}
             onChange={handleChange}
           />
         </div>
@@ -167,6 +139,7 @@ const AddCustomerDetails = () => {
             name="state"
             className="form-control"
             placeholder="Enter state"
+            value={formData.state}
             onChange={handleChange}
           />
         </div>
@@ -175,10 +148,11 @@ const AddCustomerDetails = () => {
         <div className="col-md-6">
           <label className="form-label">Zip Code:</label>
           <input
-            type="text"
+            type="number"
             name="zipCode"
             className="form-control"
             placeholder="Enter zip code"
+            value={formData.zipCode}
             onChange={handleChange}
           />
         </div>
@@ -189,13 +163,14 @@ const AddCustomerDetails = () => {
             name="country"
             className="form-control"
             placeholder="Enter country"
+            value={formData.country}
             onChange={handleChange}
           />
         </div>
       </div>
       <div className="d-flex flex-column flex-md-row justify-content-between mt-4">
-        <button type="submit" className="btn btn-primary mb-2 mb-md-0">
-          Add Customer
+        <button type="submit" className="btn btn-primary mb-2 mb-md-0" disabled={isSubmitting}>
+          {isSubmitting ? 'Adding Customer...' : 'Add Customer'}
         </button>
         <button type="button" className="btn btn-secondary" onClick={handleReset}>
           Clear Form
