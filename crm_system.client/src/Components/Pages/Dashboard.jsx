@@ -11,6 +11,7 @@ import UpdateCustomerDetails from "../CrudOperation/UpdateCustomer";
 import DeleteCustomerDetails from "../CrudOperation/DeleteCustomer";
 import UserList from "../CrudOperation/UserList";
 import DeleteUser from "../CrudOperation/DeleteUser";
+import InteractionUser from "../CrudOperation/InteractionUser";
 
 const Dashboard = () => {
   const [access, setAccess] = useState(false);
@@ -57,6 +58,12 @@ const Dashboard = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    Swal.fire({
+      title: "Logout success",
+      text: "Redirecting to Home Page...",
+      icon: "success",
+      // showConfirmButton:true
+    })
     navigate("/");
   };
 
@@ -133,9 +140,9 @@ const Dashboard = () => {
                     onClick={() => handleNavigation("generateReport")}
                   />
                                     <NavItem
-                    label="Interaction"
+                    label="interaction"
                     icon="bi bi-chat-dots"
-                    href="mailto:example@example.com"
+                    // href="mailto:example@example.com"
                   />
                 </ul>
               )}
@@ -186,7 +193,7 @@ const Dashboard = () => {
                   <NavItem
                     label="Interaction"
                     icon="bi bi-chat-dots"
-                    href="mailto:example@example.com"
+                    // href="mailto:example@example.com"
                   />
                 </ul>
               )}
@@ -229,6 +236,7 @@ const Dashboard = () => {
 
           {/* User management.... */}
           {activePage === "userList" && <UserList />}
+          {activePage === "interaction" && <InteractionUser />}
           {activePage === "deleteUser" && <DeleteUser />}
         </div>
       </div>

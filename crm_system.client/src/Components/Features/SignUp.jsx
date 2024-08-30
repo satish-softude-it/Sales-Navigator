@@ -40,20 +40,40 @@ const SignUp = () => {
     return errors;
   };
 
-  const handleGoogleSuccess = (credentialResponse) => {
+  const handleGoogleSuccess = async (credentialResponse) => {
     try {
       const decodedToken = jwtDecode(credentialResponse.credential);
-      setFormState((prevState) => ({
-        ...prevState,
+      const googleUserData = {
+        role: "sales_representative", // Default role, you might want to ask user to select
         name: decodedToken.name,
         email: decodedToken.email,
-      }));
-      setIsGoogleSignUp(true);
+        password: Math.random().toString(36).slice(-8), // Generate a random password
+      };
+
+      const response = await axios.post(
+        "https://localhost:7192/api/Users/register",
+        googleUserData
+      );
+
+      console.log(response.data);
+
+      // Store token and user data
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+
+      Swal.fire({
+        title: "Sign Up Successful!",
+        text: "Redirecting to Dashboard...",
+        icon: "success",
+        timer: 2000,
+      }).then(() => {
+        navigate("/dashboard");
+      });
     } catch (error) {
-      console.error("Error decoding token: ", error);
+      console.error("Google sign up failed:", error);
       Swal.fire({
         title: "Error",
-        text: error? error.response.data : "Failed to process Google sign up. Please try again.",
+        text: error.response?.data?.message || "Failed to process Google sign up. Please try again.",
         icon: "error",
       });
     }
@@ -76,7 +96,7 @@ const SignUp = () => {
       console.log(response.data);
       Swal.fire({
         title: "Sign Up Successful!",
-        text: "User created successfully! Redirecting to Sign In page....",
+        text: "User created successfully! Redirecting to Sign In page...",
         icon: "success",
         timer: 2000,
       }).then(() => {
@@ -102,24 +122,16 @@ const SignUp = () => {
             <div className="card-body">
               <form className="p-3" onSubmit={handleSubmit}>
                 <h3 className="text-center mb-4">Sign Up</h3>
-                
-                {!isGoogleSignUp && (
-                  <div className="d-flex justify-content-around mb-3">
-                    <GoogleLogin
-                      onSuccess={handleGoogleSuccess}
-                      onError={() => {
-                        console.log("Google Login Failed");
-                      }}
-                      useOneTap
-                    />
-                  </div>
-                )}
 
-                {isGoogleSignUp && (
-                  <div className="alert alert-success" role="alert">
-                    Google account connected. Please complete the registration.
-                  </div>
-                )}
+                <div className="d-flex justify-content-around mb-3">
+                  <GoogleLogin
+                    onSuccess={handleGoogleSuccess}
+                    onError={() => {
+                      console.log("Google Login Failed");
+                    }}
+                    useOneTap
+                  />
+                </div>
 
                 <div className="form-floating mb-3">
                   <select
@@ -131,7 +143,6 @@ const SignUp = () => {
                     required
                   >
                     <option value="" disabled>Select a role</option>
-                    {/* <option value="admin">Admin</option> */}
                     <option value="sales_manager">Sales Manager</option>
                     <option value="sales_representative">Sales Representative</option>
                     <option value="support_representative">Sales Support</option>
@@ -150,7 +161,6 @@ const SignUp = () => {
                     id="floatingName"
                     placeholder="Full Name"
                     required
-                    disabled={isGoogleSignUp}
                   />
                   <label htmlFor="floatingName">Full Name</label>
                   {errors.name && <div className="text-danger">{errors.name}</div>}
@@ -166,7 +176,6 @@ const SignUp = () => {
                     id="floatingEmail"
                     placeholder="name@example.com"
                     required
-                    disabled={isGoogleSignUp}
                   />
                   <label htmlFor="floatingEmail">Email address</label>
                   {errors.email && <div className="text-danger">{errors.email}</div>}

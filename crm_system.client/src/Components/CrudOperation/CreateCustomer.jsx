@@ -100,8 +100,8 @@ const AddCustomerDetails = () => {
         <div className="col-md-6">
           <label className="form-label">Phone:</label>
           <input
-            type="tel"
-            name="tel"
+            type="number"
+            name="phone"
             className="form-control"
             placeholder="Enter phone number"
             value={formData.phone}
