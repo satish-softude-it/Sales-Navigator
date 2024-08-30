@@ -16,6 +16,7 @@ dist-ssr
 # Editor directories and files
 .vs/
 .vscode/*
+.vs/CRM_System/FileContentIndex/4b9fe2e3-217d-4ca2-9c70-6485706a2023.vsidx
 !.vscode/extensions.json
 .idea
 .DS_Store

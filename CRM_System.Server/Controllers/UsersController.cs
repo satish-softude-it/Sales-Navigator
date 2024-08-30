@@ -27,31 +27,14 @@ namespace CRM_System.Server.Controllers
             _configuration = configuration;
         }
 
-
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult> GetUserRole(int id)
-        //{
-        //    if (id <= 0)
-        //    {
-        //        return BadRequest("Id must be a positive integer.");
-        //    }
-
-        //    var user = await _crmSystem.Users.FindAsync(id);
-        //    if (user == null)
-        //    {
-        //        return NotFound("User does not exist.");
-        //    }
-
-        //    var role = user.Role;
-
-        //    if (role == null)
-        //    {
-        //        return NotFound("Role not found for the user.");
-        //    }
-
-        //    return Ok(role);
-        //}
-
+        // Get: api/Users/userList
+        [HttpGet("userList")]
+        [Authorize]
+        public ActionResult GetUsersList()
+        {
+            var userList = _crmSystem.Users.ToList();
+            return Ok(userList);
+        }
 
         [HttpGet]
         public ActionResult GetCustomerData()
@@ -262,6 +245,24 @@ namespace CRM_System.Server.Controllers
             return _crmSystem.Users.Any(e => e.UserId == id);
         }
 
+        // DELETE: api/User/{id}
+        [HttpDelete("{id}")]
+        [Authorize]
+        public async Task<ActionResult<User>> RemoveUser(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var user = await _crmSystem.Users.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+            _crmSystem.Users.Remove(user);
+            await _crmSystem.SaveChangesAsync();
+            return Ok("User removed successfully.");
+        }
 
         private string GenerateJwtToken(User user)
         {

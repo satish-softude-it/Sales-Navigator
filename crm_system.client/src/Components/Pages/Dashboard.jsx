@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Profile from "./Profile";
-import CustomerList from "./CustomerList";
 import Report from "./Report";
 import "./Dashboard.css";
-import DeleteCustomerDetails from "../CrudOperation/Delete";
-import UpdateCustomerDetails from "../CrudOperation/Update";
-import AddCustomerDetails from "../CrudOperation/Create";
 import Swal from "sweetalert2";
+import CustomerList from "../CrudOperation/CustomerList";
+import AddCustomerDetails from "../CrudOperation/CreateCustomer";
+import Profile from "./Profile";
 import GenerateReport from "../CrudOperation/GenerateReport";
+import UpdateCustomerDetails from "../CrudOperation/UpdateCustomer";
+import DeleteCustomerDetails from "../CrudOperation/DeleteCustomer";
+import UserList from "../CrudOperation/UserList";
+import DeleteUser from "../CrudOperation/DeleteUser";
 
 const Dashboard = () => {
   const [access, setAccess] = useState(false);
   const [activePage, setActivePage] = useState("report");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const [isCustomerDropdownOpen, setIsCustomerDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
   const [reportGenerated, setReportGenerated] = useState(false);
@@ -21,7 +25,7 @@ const Dashboard = () => {
   const handleReportGenerated = () => {
     setReportGenerated(true);
   };
-  
+
   useEffect(() => {
     handleAccessByRole();
   }, []);
@@ -38,7 +42,6 @@ const Dashboard = () => {
 
   const handleNavigation = (page) => {
     if (!access && (page === "delete" || page === "generateReport")) {
-      // alert("Permission denied. Contact admin or sales representative.");
       Swal.fire({
         title: "Oops! Permission denied",
         text: "Contact admin or sales representative.",
@@ -55,6 +58,16 @@ const Dashboard = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     navigate("/");
+  };
+
+  const toggleDropdown = (dropdown) => {
+    if (dropdown === "user") {
+      setIsUserDropdownOpen(!isUserDropdownOpen);
+      setIsCustomerDropdownOpen(false);
+    } else if (dropdown === "customer") {
+      setIsCustomerDropdownOpen(!isCustomerDropdownOpen);
+      setIsUserDropdownOpen(false);
+    }
   };
 
   return (
@@ -86,52 +99,97 @@ const Dashboard = () => {
               onClick={() => handleNavigation("profile")}
             />
 
+            {/* User Dropdown */}
             <li className="nav-item mb-2">
               <a
                 href="#"
                 className="nav-link text-white"
-                data-bs-toggle="collapse"
-                data-bs-target="#functionalitySubmenu"
+                onClick={() => toggleDropdown("user")}
               >
-                <i className="bi bi-grid me-2"></i>
-                Functionality
+                <i className="bi bi-people me-2"></i>
+                User
+                <i
+                  className={`bi ${
+                    isUserDropdownOpen ? "bi-chevron-up" : "bi-chevron-down"
+                  } ms-2`}
+                ></i>
               </a>
-              <ul
-                className="nav flex-column ms-3 show default-bullet"
-                id="functionalitySubmenu"
+              {isUserDropdownOpen && (
+                <ul className="nav flex-column ms-3 show default-bullet " >
+                  <NavItem
+                  className=''
+                    label="User List"
+                    icon="bi-list-ul"
+                    onClick={() => handleNavigation("userList")}
+                  />
+                  {/* <NavItem
+                    label="Delete User"
+                    icon="bi-person-x"
+                    onClick={() => handleNavigation("deleteUser")}
+                  /> */}
+                <NavItem
+                    label="Generate Report"
+                    icon="bi-clipboard-data"
+                    onClick={() => handleNavigation("generateReport")}
+                  />
+                                    <NavItem
+                    label="Interaction"
+                    icon="bi bi-chat-dots"
+                    href="mailto:example@example.com"
+                  />
+                </ul>
+              )}
+            </li>
+
+            {/* Customer Dropdown */}
+            <li className="nav-item mb-2">
+              <a
+                href="#"
+                className="nav-link text-white"
+                onClick={() => toggleDropdown("customer")}
               >
-                <NavItem
-                  label="Add Customer"
-                  icon="bi-person-plus"
-                  onClick={() => handleNavigation("add")}
-                />
-                <NavItem
-                  label="Delete Customer"
-                  icon="bi-person-x"
-                  onClick={() => handleNavigation("delete")}
-                />
-                <NavItem
-                  label="Update Customer"
-                  icon="bi-pencil-square"
-                  onClick={() => handleNavigation("update")}
-                />
-                <NavItem
-                  label="Customer List"
-                  icon="bi-table"
-                  onClick={() => handleNavigation("customerList")}
-                />
-                <NavItem
-                  label="Generate Report"
-                  icon="bi-clipboard-data"
-                  onClick={() => handleNavigation("generateReport")}
-                />
-                <NavItem
-                  label="Interaction"
-                  icon="bi bi-chat-dots"
-                  // onClick={() => }
-                  href="mailto:example@example.com"
-                />
-              </ul>
+                <i className="bi bi-people me-2"></i>
+                Customers
+                <i
+                  className={`bi ${
+                    isCustomerDropdownOpen ? "bi-chevron-up" : "bi-chevron-down"
+                  } ms-2`}
+                ></i>
+              </a>
+              {isCustomerDropdownOpen && (
+                <ul className="nav flex-column ms-3 show default-bullet">
+                  <NavItem
+                    label="Customer List"
+                    icon="bi-table"
+                    onClick={() => handleNavigation("customerList")}
+                  />
+                  <NavItem
+                    label="Add Customer"
+                    icon="bi-person-plus"
+                    onClick={() => handleNavigation("add")}
+                  />
+                  <NavItem
+                    label="Update Customer"
+                    icon="bi-pencil-square"
+                    onClick={() => handleNavigation("update")}
+                  />
+                  <NavItem
+                    label="Delete Customer"
+                    icon="bi-person-x"
+                    onClick={() => handleNavigation("delete")}
+                  />
+                  <NavItem
+                    label="Generate Report"
+                    icon="bi-clipboard-data"
+                    onClick={() => handleNavigation("generateReport")}
+                  />
+                  <NavItem
+                    label="Interaction"
+                    icon="bi bi-chat-dots"
+                    href="mailto:example@example.com"
+                  />
+                </ul>
+              )}
             </li>
           </ul>
 
@@ -157,15 +215,21 @@ const Dashboard = () => {
           </div>
         </nav>
 
-
         <div className="content p-3">
+          {/* Customer management.... */}
+
           {activePage === "profile" && <Profile />}
           {activePage === "report" && <Report />}
           {activePage === "customerList" && <CustomerList />}
           {activePage === "generateReport" && <GenerateReport />}
           {activePage === "add" && <AddCustomerDetails />}
+
           {activePage === "delete" && <DeleteCustomerDetails />}
           {activePage === "update" && <UpdateCustomerDetails />}
+
+          {/* User management.... */}
+          {activePage === "userList" && <UserList />}
+          {activePage === "deleteUser" && <DeleteUser />}
         </div>
       </div>
     </div>
@@ -176,18 +240,18 @@ const mailtoLink = (label) => {
   if (label === "Interaction") {
     const to = "satish.vishwakarma.it@gmail.com";
     const subject = encodeURIComponent("Interaction Request");
-    const body = encodeURIComponent("Hello,\n\nI would like to discuss an interaction.\n\nThank you!");
-    
-    // Construct the Gmail compose link
+    const body = encodeURIComponent(
+      "Hello,\n\nI would like to discuss an interaction.\n\nThank you!"
+    );
     return `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subject}&body=${body}`;
   }
   return "#";
 };
 
-const NavItem = ({ label, icon, onClick }) => (
+const NavItem = ({ label, icon, onClick, href }) => (
   <li className="nav-item mb-2">
     <a
-      href={mailtoLink(label)}
+      href={href || mailtoLink(label)}
       className="nav-link text-white"
       onClick={onClick}
     >
