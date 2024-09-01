@@ -21,5 +21,7 @@ public partial class User
 
     public virtual ICollection<Customer> CustomerUpdatedByNavigations { get; set; } = new List<Customer>();
 
+    public virtual ICollection<Interaction> Interactions { get; set; } = new List<Interaction>();
+
     public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
 }

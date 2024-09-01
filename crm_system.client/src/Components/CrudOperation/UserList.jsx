@@ -127,61 +127,65 @@ const UserList = () => {
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-12">
-            <h3 className="mb-3">Customer List</h3>
-            <div className="d-flex justify-content-between mb-3">
-              <input
-                type="text"
-                placeholder="Search by name, email, or contact number..."
-                value={searchTerm}
-                onChange={handleSearchChange}
-                className="form-control w-75"
-              />
-              <button onClick={downloadExcel} className="btn btn-success ">
-                <Download size={24} className="me-2" />
-                Download Excel
-              </button>
+          <h3 className="mb-3">Customer List</h3>
+          <div className="d-flex justify-content-between mb-3">
+            <input
+              type="text"
+              placeholder="Search by name, email, or contact number..."
+              value={searchTerm}
+              onChange={handleSearchChange}
+              className="form-control w-75"
+            />
+            <button onClick={downloadExcel} className="btn btn-success ">
+              <Download size={24} className="me-2" />
+              Download Excel
+            </button>
 
-              <div className="btn btn-info d-flex align-items-center">
-                <Users size={24} className="me-2" />
-                <div>
-                  <strong>Total Customers:</strong>
-                  <span className="fs-4"> {customerStats.totalCustomers}</span>
-                </div>
+            <div className="btn btn-info d-flex align-items-center">
+              <Users size={24} className="me-2" />
+              <div>
+                <strong>Total Customers:</strong>
+                <span className="fs-4"> {customerStats.totalCustomers}</span>
               </div>
             </div>
-
+          </div>
+          
           <div className="table-responsive">
             <table className="table table-hover table-bordered">
               <thead className="table-light">
                 <tr>
-                  {columns.map((column) => (
-                    <th
-                      key={column}
-                      scope="col"
-                      onClick={() => handleSort(column)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      {column} <ArrowUpDown size={16} />
-                    </th>
-                  ))}
+                  {columns
+                    .filter((column) => column !== 'interactions') // Filtering out 'interactions' key
+                    .map((column) => (
+                      <th
+                        key={column}
+                        scope="col"
+                        onClick={() => handleSort(column)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        {column[0].toUpperCase() + column.slice(1)} <ArrowUpDown size={16} />
+                      </th>
+                    ))}
                 </tr>
               </thead>
               <tbody>
                 {sortedData.map((item) => (
                   <tr key={item.id}>
-                    {columns.map((column) => (
-                      <td key={column}>
-                        {typeof item[column] === "string" &&
-                        item[column].includes("T")
-                          ? formatDate(item[column])
-                          : item[column]}
-                      </td>
-                    ))}
+                    {columns
+                      .filter((column) => column !== 'interactions') // Apply the same filtering for table cells
+                      .map((column) => (
+                        <td key={column}>
+                          {typeof item[column] === "string" && item[column].includes("T")
+                            ? formatDate(item[column])
+                            : item[column]}
+                        </td>
+                      ))}
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+
         </div>
       </div>
     </div>

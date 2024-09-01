@@ -10,7 +10,7 @@ const clientId = import.meta.env.VITE_CLIENT_ID;
 if (!clientId) {
   console.error('VITE_CLIENT_ID is not defined');
 }
-console.log("CLIENT  "+clientId)
+// console.log("CLIENT  "+clientId) 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <GoogleOAuthProvider clientId={clientId}>

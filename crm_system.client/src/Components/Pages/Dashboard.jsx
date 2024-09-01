@@ -12,8 +12,9 @@ import DeleteCustomerDetails from "../CrudOperation/DeleteCustomer";
 import UserList from "../CrudOperation/UserList";
 import DeleteUser from "../CrudOperation/DeleteUser";
 import InteractionUser from "../CrudOperation/InteractionUser";
-
+import UserActivity from '../CrudOperation/UserActivity'
 const Dashboard = () => {
+
   const [access, setAccess] = useState(false);
   const [activePage, setActivePage] = useState("report");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -116,15 +117,14 @@ const Dashboard = () => {
                 <i className="bi bi-people me-2"></i>
                 User
                 <i
-                  className={`bi ${
-                    isUserDropdownOpen ? "bi-chevron-up" : "bi-chevron-down"
-                  } ms-2`}
+                  className={`bi ${isUserDropdownOpen ? "bi-chevron-up" : "bi-chevron-down"
+                    } ms-2`}
                 ></i>
               </a>
               {isUserDropdownOpen && (
                 <ul className="nav flex-column ms-3 show default-bullet " >
                   <NavItem
-                  className=''
+                    className=''
                     label="User List"
                     icon="bi-list-ul"
                     onClick={() => handleNavigation("userList")}
@@ -134,16 +134,26 @@ const Dashboard = () => {
                     icon="bi-person-x"
                     onClick={() => handleNavigation("deleteUser")}
                   /> */}
-                <NavItem
+                  <NavItem
                     label="Generate Report"
                     icon="bi-clipboard-data"
                     onClick={() => handleNavigation("generateReport")}
+                  />  
+                  <NavItem
+                    label="User Activities"
+                    icon="bi-person-lines-fill"
+                    onClick={() => handleNavigation("userActivity")}
                   />
-                                    <NavItem
-                    label="interaction"
+
+
+
+                  {/* <NavItem
+                    label="Interaction"
                     icon="bi bi-chat-dots"
                     // href="mailto:example@example.com"
-                  />
+                    onClick={() => handleNavigation("interaction")}
+
+                  /> */}
                 </ul>
               )}
             </li>
@@ -158,9 +168,8 @@ const Dashboard = () => {
                 <i className="bi bi-people me-2"></i>
                 Customers
                 <i
-                  className={`bi ${
-                    isCustomerDropdownOpen ? "bi-chevron-up" : "bi-chevron-down"
-                  } ms-2`}
+                  className={`bi ${isCustomerDropdownOpen ? "bi-chevron-up" : "bi-chevron-down"
+                    } ms-2`}
                 ></i>
               </a>
               {isCustomerDropdownOpen && (
@@ -194,6 +203,8 @@ const Dashboard = () => {
                     label="Interaction"
                     icon="bi bi-chat-dots"
                     // href="mailto:example@example.com"
+                    onClick={() => handleNavigation("interaction")}
+
                   />
                 </ul>
               )}
@@ -238,28 +249,17 @@ const Dashboard = () => {
           {activePage === "userList" && <UserList />}
           {activePage === "interaction" && <InteractionUser />}
           {activePage === "deleteUser" && <DeleteUser />}
+          {activePage === "userActivity" && <UserActivity />}
         </div>
       </div>
     </div>
   );
 };
 
-const mailtoLink = (label) => {
-  if (label === "Interaction") {
-    const to = "satish.vishwakarma.it@gmail.com";
-    const subject = encodeURIComponent("Interaction Request");
-    const body = encodeURIComponent(
-      "Hello,\n\nI would like to discuss an interaction.\n\nThank you!"
-    );
-    return `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subject}&body=${body}`;
-  }
-  return "#";
-};
-
 const NavItem = ({ label, icon, onClick, href }) => (
   <li className="nav-item mb-2">
     <a
-      href={href || mailtoLink(label)}
+      href="#"
       className="nav-link text-white"
       onClick={onClick}
     >
