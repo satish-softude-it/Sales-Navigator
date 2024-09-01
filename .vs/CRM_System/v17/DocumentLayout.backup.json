@@ -1,18 +1,42 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\",
+  "WorkspaceRootPath": "D:\\Sales-CRM\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|c:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\crm_system.client\\node_modules\\react-dom\\cjs\\react-dom.development.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}|",
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|d:\\sales-crm\\crm_system.server\\controllers\\reportscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\controllers\\reportscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|d:\\sales-crm\\crm_system.server\\controllers\\customerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\controllers\\customerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|d:\\sales-crm\\crm_system.server\\models\\crmsystemdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\models\\crmsystemdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|d:\\sales-crm\\crm_system.server\\controllers\\interactioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\controllers\\interactioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|d:\\sales-crm\\crm_system.server\\controllers\\dtocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\controllers\\dtocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|d:\\sales-crm\\crm_system.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|d:\\sales-crm\\crm_system.server\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Sales-CRM\\crm_system.client\\node_modules\\react-dom\\cjs\\react-dom.development.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}|",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:crm_system.client\\node_modules\\react-dom\\cjs\\react-dom.development.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\salesnavigator\\crm_system\\crm_system.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|d:\\sales-crm\\crm_system.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|c:\\users\\satish.vishwakarma\\desktop\\salesnavigator\\crm_system\\crm_system.server\\controllers\\customerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\controllers\\customerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,40 +59,114 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "react-dom.development.js",
-              "DocumentMoniker": "c:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\crm_system.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
-              "RelativeDocumentMoniker": "crm_system.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
-              "ToolTip": "c:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\crm_system.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
-              "RelativeToolTip": "crm_system.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
-              "ViewState": "AgIAAENZAAAAAAAAAAAMwEVZAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-08-30T12:32:34.763Z",
+              "Title": "ReportsController.cs",
+              "DocumentMoniker": "D:\\Sales-CRM\\CRM_System.Server\\Controllers\\ReportsController.cs",
+              "RelativeDocumentMoniker": "CRM_System.Server\\Controllers\\ReportsController.cs",
+              "ToolTip": "D:\\Sales-CRM\\CRM_System.Server\\Controllers\\ReportsController.cs",
+              "RelativeToolTip": "CRM_System.Server\\Controllers\\ReportsController.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAA5wDoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-01T13:12:52.588Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Sales-CRM\\CRM_System.Server\\appsettings.json",
+              "RelativeDocumentMoniker": "CRM_System.Server\\appsettings.json",
+              "ToolTip": "D:\\Sales-CRM\\CRM_System.Server\\appsettings.json",
+              "RelativeToolTip": "CRM_System.Server\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-08-30T11:26:47.123Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\appsettings.json",
-              "RelativeDocumentMoniker": "CRM_System.Server\\appsettings.json",
-              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\appsettings.json",
-              "RelativeToolTip": "CRM_System.Server\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-08-30T11:26:47.123Z",
+              "Title": "CustomersController.cs",
+              "DocumentMoniker": "D:\\Sales-CRM\\CRM_System.Server\\Controllers\\CustomersController.cs",
+              "RelativeDocumentMoniker": "CRM_System.Server\\Controllers\\CustomersController.cs",
+              "ToolTip": "D:\\Sales-CRM\\CRM_System.Server\\Controllers\\CustomersController.cs",
+              "RelativeToolTip": "CRM_System.Server\\Controllers\\CustomersController.cs",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAIwFYAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-30T10:38:47.506Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CustomersController.cs",
-              "DocumentMoniker": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\Controllers\\CustomersController.cs",
-              "RelativeDocumentMoniker": "CRM_System.Server\\Controllers\\CustomersController.cs",
-              "ToolTip": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\Controllers\\CustomersController.cs",
-              "RelativeToolTip": "CRM_System.Server\\Controllers\\CustomersController.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAywCkAAAARAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "DTOController.cs",
+              "DocumentMoniker": "D:\\Sales-CRM\\CRM_System.Server\\Controllers\\DTOController.cs",
+              "RelativeDocumentMoniker": "CRM_System.Server\\Controllers\\DTOController.cs",
+              "ToolTip": "D:\\Sales-CRM\\CRM_System.Server\\Controllers\\DTOController.cs",
+              "RelativeToolTip": "CRM_System.Server\\Controllers\\DTOController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-30T10:38:47.506Z",
+              "WhenOpened": "2024-08-31T17:59:24.287Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "InteractionController.cs",
+              "DocumentMoniker": "D:\\Sales-CRM\\CRM_System.Server\\Controllers\\InteractionController.cs",
+              "RelativeDocumentMoniker": "CRM_System.Server\\Controllers\\InteractionController.cs",
+              "ToolTip": "D:\\Sales-CRM\\CRM_System.Server\\Controllers\\InteractionController.cs",
+              "RelativeToolTip": "CRM_System.Server\\Controllers\\InteractionController.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAgwEwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-31T03:58:33.776Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Sales-CRM\\CRM_System.Server\\Program.cs",
+              "RelativeDocumentMoniker": "CRM_System.Server\\Program.cs",
+              "ToolTip": "D:\\Sales-CRM\\CRM_System.Server\\Program.cs",
+              "RelativeToolTip": "CRM_System.Server\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEcAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-31T16:51:13.864Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CrmSystemDbContext.cs",
+              "DocumentMoniker": "D:\\Sales-CRM\\CRM_System.Server\\Models\\CrmSystemDbContext.cs",
+              "RelativeDocumentMoniker": "CRM_System.Server\\Models\\CrmSystemDbContext.cs",
+              "ToolTip": "D:\\Sales-CRM\\CRM_System.Server\\Models\\CrmSystemDbContext.cs",
+              "RelativeToolTip": "CRM_System.Server\\Models\\CrmSystemDbContext.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAlwBUAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-30T17:05:06.428Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "react-dom.development.js",
+              "DocumentMoniker": "D:\\Sales-CRM\\crm_system.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
+              "RelativeDocumentMoniker": "crm_system.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
+              "ToolTip": "D:\\Sales-CRM\\crm_system.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
+              "RelativeToolTip": "crm_system.client\\node_modules\\react-dom\\cjs\\react-dom.development.js",
+              "ViewState": "AgIAAENZAAAAAAAAAAAMwFRZAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-08-30T12:32:34.763Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "D:\\Sales-CRM\\CRM_System.Server\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "CRM_System.Server\\Controllers\\UsersController.cs",
+              "ToolTip": "D:\\Sales-CRM\\CRM_System.Server\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "CRM_System.Server\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAYAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-30T17:16:13.486Z",
               "EditorCaption": ""
             }
           ]

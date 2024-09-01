@@ -7,6 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 .vs/
+.vs/CRM_System/FileContentIndex/
 
 node_modules
 dist
@@ -16,6 +17,8 @@ dist-ssr
 # Editor directories and files
 .vs/
 .vscode/*
+.vs/CRM_System/FileContentIndex/
+
 .vs/CRM_System/FileContentIndex/4b9fe2e3-217d-4ca2-9c70-6485706a2023.vsidx
 !.vscode/extensions.json
 .idea

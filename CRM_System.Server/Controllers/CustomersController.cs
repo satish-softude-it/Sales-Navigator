@@ -39,6 +39,22 @@ namespace CRM_System.Server.Controllers
             return Ok(customer);
         }
 
+        // GET: api/Customers/createdBy/{createdBy}
+        [HttpGet("createdBy/{createdBy}")]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomersByCreatedBy(int createdBy)
+        {
+            var customers = await _context.Customers
+                .Where(c => c.CreatedBy == createdBy)
+                .ToListAsync();
+
+            if (customers == null || customers.Count == 0)
+                return NotFound("No customers found for the given user ID!");
+
+            return Ok(customers);
+        }
+
+
         // POST: api/Customers
         [HttpPost]
         [Authorize]

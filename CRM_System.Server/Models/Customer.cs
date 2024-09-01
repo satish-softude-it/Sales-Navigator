@@ -33,5 +33,7 @@ public partial class Customer
 
     public virtual User? CreatedByNavigation { get; set; }
 
+    public virtual ICollection<Interaction> Interactions { get; set; } = new List<Interaction>();
+
     public virtual User? UpdatedByNavigation { get; set; }
 }
