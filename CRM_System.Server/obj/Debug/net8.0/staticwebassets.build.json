@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "WHJ0VII+FtV8E/3kAIhDrLdoeGWnH7LrtSuq+9FHsFU=",
+  "Hash": "FPbEo3q6wkoTZsZxlBRX/LX4AZmS2Yo7KEFunHwrpxY=",
   "Source": "CRM_System.Server",
   "BasePath": "_content/CRM_System.Server",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "D:\\Sales-Navigator\\crm_system.client\\crm_system.client.esproj",
+      "Identity": "D:\\Sales-CRM\\crm_system.client\\crm_system.client.esproj",
       "Version": 2,
       "Source": "crm_system.client",
       "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",
