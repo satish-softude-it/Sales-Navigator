@@ -124,24 +124,66 @@ namespace CRM_System.Server.Controllers
             return Ok(updatedCustomer);
         }
 
+        //// DELETE: api/Customers/{id}
+        //[HttpDelete("{id}")]
+        //[Authorize]
+        //public async Task<ActionResult<Customer>> RemoveCustomer(int id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+        //    var customer = await _context.Customers.FindAsync(id);
+        //    if (customer == null)
+        //    {
+        //        return NotFound("Customer not found.");
+        //    }
+        //    _context.Customers.Remove(customer);
+        //    await _context.SaveChangesAsync();
+        //    return Ok("Customer removed successfully.");
+        //}
+
+
         // DELETE: api/Customers/{id}
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<ActionResult<Customer>> RemoveCustomer(int id)
+        public async Task<ActionResult> RemoveCustomer(int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var customer = await _context.Customers.FindAsync(id);
+
+            var customer = await _context.Customers
+                //.Include(c => c.Report) // Assuming navigation properties exist
+                .Include(c => c.Interactions)
+                .FirstOrDefaultAsync(c => c.CustomerId == id);
+
             if (customer == null)
             {
                 return NotFound("Customer not found.");
             }
+
+            // Remove related records in Report and Interaction tables
+            //_context.Reports.RemoveRange(customer.Reports);
+            _context.Interactions.RemoveRange(customer.Interactions);
+
+            // Remove the customer record
             _context.Customers.Remove(customer);
-            await _context.SaveChangesAsync();
-            return Ok("Customer removed successfully.");
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                // Handle potential exceptions related to database operations
+                return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while deleting the customer: {ex.Message}");
+            }
+
+            return Ok("Customer and associated records removed successfully.");
         }
+
 
         private bool CustomerExists(int id)
         {

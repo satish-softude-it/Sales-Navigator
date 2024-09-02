@@ -48,7 +48,6 @@ const UserActivity = () => {
   };
 
   const { user, customers, interactions } = data;
-
   return (
     <div className="container mt-4">
       <h2>User Dashboard</h2>

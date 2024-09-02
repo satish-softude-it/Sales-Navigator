@@ -73,7 +73,7 @@ const SignIn = () => {
                     placeholder="name@example.com" 
                     required 
                   />
-                  <label htmlFor="floatingEmail">Email address</label>
+                  <label htmlFor="floatingEmail">Email address <span className="text-danger">*</span></label>
                 </div>
 
                 <div className="form-floating mb-3">
@@ -86,7 +86,7 @@ const SignIn = () => {
                     placeholder="Password" 
                     required 
                   />
-                  <label htmlFor="floatingPassword">Password</label>
+                  <label htmlFor="floatingPassword">Password <span className="text-danger">*</span></label>
                 </div>
 
                 <button className="btn btn-primary w-100 mb-3" type="submit">Sign In</button>
