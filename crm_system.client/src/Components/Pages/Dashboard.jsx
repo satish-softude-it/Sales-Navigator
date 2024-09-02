@@ -391,11 +391,11 @@ const Dashboard = () => {
                       icon="bi-list-ul"
                       onClick={() => handleNavigation("userList")}
                     />
-                    <NavItem
+                    {/* <NavItem
                       label="Generate Report"
                       icon="bi-clipboard-data"
                       onClick={() => handleNavigation("generateReport")}
-                    />
+                    /> */}
                     <NavItem
                       label="User Activities"
                       icon="bi-person-lines-fill"

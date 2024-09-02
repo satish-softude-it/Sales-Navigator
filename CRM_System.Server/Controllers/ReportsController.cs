@@ -2,9 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http; // Add this for StatusCodes
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace CRM_System.Server.Controllers
 {
@@ -13,10 +14,12 @@ namespace CRM_System.Server.Controllers
     public class ReportsController : ControllerBase
     {
         private readonly CrmSystemDbContext _context;
+        private readonly ILogger<ReportsController> _logger;
 
-        public ReportsController(CrmSystemDbContext context)
+        public ReportsController(CrmSystemDbContext context, ILogger<ReportsController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: api/Reports 
@@ -24,14 +27,22 @@ namespace CRM_System.Server.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<Report>>> GetReportList()
         {
-            var reports = await _context.Reports.ToListAsync();
-            return Ok(reports);
+            try
+            {
+                var reports = await _context.Reports.ToListAsync();
+                return Ok(reports);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while retrieving the reports.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while retrieving the reports.");
+            }
         }
 
         // POST: api/Reports
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<Report>> AddReports(Report obj)
+        public async Task<ActionResult<Report>> AddReports([FromBody] Report obj)
         {
             if (obj == null || !ModelState.IsValid)
             {
@@ -43,14 +54,17 @@ namespace CRM_System.Server.Controllers
                 _context.Reports.Add(obj);
                 await _context.SaveChangesAsync();
 
-                return Ok(new { Message = "Report added successfully" });
+                // Assuming the Report entity has an Id property
+                return CreatedAtAction(nameof(GetReportList), new { id = obj.ReportId }, obj);
             }
             catch (DbUpdateException dbEx)
             {
+                _logger.LogError(dbEx, "Database update error occurred.");
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while saving the report. Please check the server logs for more details.");
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "An unexpected error occurred.");
                 return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred. Please check the server logs for more details.");
             }
         }

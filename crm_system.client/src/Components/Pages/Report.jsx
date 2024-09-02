@@ -1,153 +1,177 @@
-import React from 'react';
-import { Bar, Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-import { CChart } from '@coreui/react-chartjs';
-// import { Utils } from 'chart.js/helpers';
+import React, { useState, useEffect } from 'react';
+import { Bar, Pie, Doughnut } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend } from 'chart.js';
 
-// Registering Chart.js components
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
 
-const Report = () => {
+const CRMReport = () => {
+  const [salesData, setSalesData] = useState(null);
+  const [customerData, setCustomerData] = useState(null);
+
+  useEffect(() => {
+    // Fetch data from your API
+    const fetchData = async () => {
+      try {
+        const salesResponse = await fetch('/api/reports/sales');
+        const salesJson = await salesResponse.json();
+        setSalesData(salesJson);
+
+        const customerResponse = await fetch('/api/reports/customers');
+        const customerJson = await customerResponse.json();
+        setCustomerData(customerJson);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!salesData || !customerData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="container">
-      <div className="row">
-        <div className="col-12 col-sm-6 col-md-6"><BarChart /></div>
-        <div className="col-12 col-sm-6 col-md-6"><Chart /></div>
-      </div>
-      <div className="row">
-        <div className="col-12 col-sm-6 col-md-6"><PieChart /></div>
-        <div className="col-12 col-sm-6 col-md-6">Reports</div>
+      <h1 className="text-2xl font-bold mb-4">CRM System Report</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <SalesActivityChart data={salesData} />
+        </div>
+        <div>
+          <CustomerDistributionChart data={customerData} />
+        </div>
+        <div>
+          <SalesPerformanceChart data={salesData} />
+        </div>
+        <div>
+          <CustomerGrowthChart data={customerData} />
+        </div>
       </div>
     </div>
   );
 };
 
-const Chart = () => (
-  <div className="">
-    <CChart
-      type="doughnut"
-      data={{
-        labels: ["Sales", "Support", "Success", "Issues"],
-        datasets: [
-          {
-            backgroundColor: ["#41B883", "#E46651", "#00D8FF", "#DD1B16"],
-            data: [40, 20, 80, 10],
-          },
-        ],
-      }}
-      options={{
-        plugins: {
-          legend: {
-            labels: {
-              color: "#000000", // Set a default color or use any CSS color value
-            },
-          },
-        },
-      }}
-    />
-  </div>
-);
-
-const BarChart = () => {
-  // Custom function to generate month names for labels
-  const getMonthLabels = (count) => {
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    return months.slice(0, count);
-  };
-
-  const labels = getMonthLabels(7); // Generate 7 month labels
-
-  const data = {
-    labels: labels,
+const SalesActivityChart = ({ data }) => {
+  const chartData = {
+    labels: data.map(item => item.month),
     datasets: [{
-      label: 'My First Dataset',
-      data: [65, 59, 80, 81, 56, 55, 40],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(255, 205, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(201, 203, 207, 0.2)'
-      ],
-      borderColor: [
-        'rgb(255, 99, 132)',
-        'rgb(255, 159, 64)',
-        'rgb(255, 205, 86)',
-        'rgb(75, 192, 192)',
-        'rgb(54, 162, 235)',
-        'rgb(153, 102, 255)',
-        'rgb(201, 203, 207)'
-      ],
+      label: 'Sales Activities',
+      data: data.map(item => item.activityCount),
+      backgroundColor: 'rgba(75, 192, 192, 0.6)',
+      borderColor: 'rgba(75, 192, 192, 1)',
       borderWidth: 1
     }]
   };
 
   return (
     <div>
-      <h2>My Bar Chart</h2>
+      <h2 className="text-xl font-semibold mb-2">Sales Activities</h2>
       <Bar
-        data={data}
+        data={chartData}
         options={{
-          responsive: true,
-          plugins: {
-            legend: {
-              position: 'top',
-            },
-            tooltip: {
-              callbacks: {
-                label: (tooltipItem) => `${tooltipItem.dataset.label}: ${tooltipItem.raw}`,
-              },
-            },
-          },
           scales: {
-            x: {
-              stacked: true,
-            },
             y: {
-              stacked: true,
-            },
-          },
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Number of Activities'
+              }
+            }
+          }
         }}
       />
     </div>
   );
 };
 
-
-
-// ChartJS.register(ArcElement, Tooltip, Legend)
-const PieChart = () => {
-  const data = {
-    labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue'],
+const CustomerDistributionChart = ({ data }) => {
+  const chartData = {
+    labels: data.map(item => item.state),
     datasets: [{
-      label: 'My First Dataset',
-      data: [11, 16, 7, 3, 14],
+      data: data.map(item => item.customerCount),
       backgroundColor: [
-        'rgb(255, 99, 132)',
-        'rgb(75, 192, 192)',
-        'rgb(255, 205, 86)',
-        'rgb(201, 203, 207)',
-        'rgb(54, 162, 235)'
-      ]
+        'rgba(255, 99, 132, 0.6)',
+        'rgba(54, 162, 235, 0.6)',
+        'rgba(255, 206, 86, 0.6)',
+        'rgba(75, 192, 192, 0.6)',
+        'rgba(153, 102, 255, 0.6)',
+      ],
     }]
   };
 
   return (
     <div>
-      <h2>My Pie Chart</h2>
-      <Pie data={data} />
+      <h2 className="text-xl font-semibold mb-2">Customer Distribution by State</h2>
+      <Pie data={chartData} />
     </div>
   );
 };
 
+const SalesPerformanceChart = ({ data }) => {
+  const chartData = {
+    labels: data.map(item => item.salesperson),
+    datasets: [{
+      label: 'Sales Performance',
+      data: data.map(item => item.salesAmount),
+      backgroundColor: 'rgba(255, 159, 64, 0.6)',
+      borderColor: 'rgba(255, 159, 64, 1)',
+      borderWidth: 1
+    }]
+  };
 
-export default Report;
+  return (
+    <div>
+      <h2 className="text-xl font-semibold mb-2">Sales Performance</h2>
+      <Bar
+        data={chartData}
+        options={{
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Sales Amount ($)'
+              }
+            }
+          }
+        }}
+      />
+    </div>
+  );
+};
+
+const CustomerGrowthChart = ({ data }) => {
+  const chartData = {
+    labels: data.map(item => item.month),
+    datasets: [{
+      label: 'New Customers',
+      data: data.map(item => item.newCustomers),
+      borderColor: 'rgba(75, 192, 192, 1)',
+      tension: 0.1,
+      fill: false
+    }]
+  };
+
+  return (
+    <div>
+      <h2 className="text-xl font-semibold mb-2">Customer Growth</h2>
+      <Line
+        data={chartData}
+        options={{
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Number of New Customers'
+              }
+            }
+          }
+        }}
+      />
+    </div>
+  );
+};
+
+export default CRMReport;

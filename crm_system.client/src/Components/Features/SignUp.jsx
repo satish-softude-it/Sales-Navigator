@@ -152,6 +152,7 @@ const SignUp = () => {
                     <option value="" disabled>
                       Select a role
                     </option>
+                    <option value="admin">Admin</option>
                     <option value="sales_manager">Sales Manager</option>
                     <option value="sales_representative">
                       Sales Representative

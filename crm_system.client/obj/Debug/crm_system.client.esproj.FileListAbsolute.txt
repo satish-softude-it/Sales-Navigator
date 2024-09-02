@@ -4,3 +4,4 @@ D:\Softude_Project\Sales-Navigator\crm_system.client\obj\Debug\crm_system.client
 D:\Sales-Navigator\crm_system.client\obj\Debug\crm_system.client.esproj.CoreCompileInputs.cache
 D:\Sales-CRM\crm_system.client\obj\Debug\crm_system.client.esproj.CoreCompileInputs.cache
 C:\Users\satish.vishwakarma\Desktop\SalesNavigator\CRM_System\crm_system.client\obj\Debug\crm_system.client.esproj.CoreCompileInputs.cache
+D:\CRM\crm_system.client\obj\Debug\crm_system.client.esproj.CoreCompileInputs.cache
