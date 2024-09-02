@@ -25,13 +25,15 @@ public partial class CrmSystemDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=ANIL-SAMSUNG\\SQLEXPRESS;Database=CRM_SYSTEM_DB;Trusted_Connection=True;TrustServerCertificate=True;Command Timeout=300;");
+        => optionsBuilder.UseSqlServer("Server=SIPLED-SV\\MSSQLSERVERSV;Database=CRM_SYSTEM_DB; Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.HasKey(e => e.CustomerId).HasName("PK__Customer__A4AE64B8E241BACB");
+            entity.HasKey(e => e.CustomerId).HasName("PK__Customer__A4AE64B8BB3BFF74");
+
+            entity.ToTable("Customers", "dbo");
 
             entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
             entity.Property(e => e.Address)
@@ -76,7 +78,9 @@ public partial class CrmSystemDbContext : DbContext
 
         modelBuilder.Entity<Interaction>(entity =>
         {
-            entity.HasKey(e => e.InteractionId).HasName("PK__Interact__922C049699F713FD");
+            entity.HasKey(e => e.InteractionId).HasName("PK__Interact__922C049675CEAC44");
+
+            entity.ToTable("Interactions", "dbo");
 
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -98,7 +102,9 @@ public partial class CrmSystemDbContext : DbContext
 
         modelBuilder.Entity<Report>(entity =>
         {
-            entity.HasKey(e => e.ReportId).HasName("PK__Reports__D5BD48E595B6B99B");
+            entity.HasKey(e => e.ReportId).HasName("PK__Reports__D5BD48E5FA1508A2");
+
+            entity.ToTable("Reports", "dbo");
 
             entity.Property(e => e.ReportId).HasColumnName("ReportID");
             entity.Property(e => e.GeneratedAt)
@@ -114,9 +120,11 @@ public partial class CrmSystemDbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCACFC46DAB3");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC3A48269A");
 
-            entity.HasIndex(e => e.Email, "UQ__Users__A9D10534E51D3452").IsUnique();
+            entity.ToTable("Users", "dbo");
+
+            entity.HasIndex(e => e.Email, "UQ__Users__A9D1053482F1275C").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("UserID");
             entity.Property(e => e.CreatedAt)
