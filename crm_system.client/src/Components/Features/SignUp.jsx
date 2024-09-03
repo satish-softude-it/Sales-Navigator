@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { GoogleLogin } from "@react-oauth/google";
-import {jwtDecode} from "jwt-decode";  
+import { jwtDecode } from "jwt-decode";
+
+const serverPort = import.meta.env.VITE_SERVER_PORT;
+const loginApi = `${serverPort}${import.meta.env.VITE_LOGIN_API}`;
+const registrationApi = `${serverPort}${import.meta.env.VITE_REGISTRATION_API}`;
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -72,10 +76,7 @@ const SignUp = () => {
     try {
       const { confirmPassword, ...dataToSubmit } = formState;
 
-      const response = await axios.post(
-        "https://localhost:7192/api/Users/register",
-        dataToSubmit
-      );
+      const response = await axios.post(registrationApi, dataToSubmit);
 
       console.log(response.data);
 
@@ -87,14 +88,17 @@ const SignUp = () => {
       }).then(async () => {
         if (isGoogleSignUp) {
           try {
-            const loginResponse = await axios.post(
-              "https://localhost:7192/api/Users/login",
-              { email: formState.email, password: formState.password }
-            );
+            const loginResponse = await axios.post(loginApi, {
+              email: formState.email,
+              password: formState.password,
+            });
             console.log("Login Response: ", loginResponse.data);
 
             localStorage.setItem("token", loginResponse.data.token);
-            localStorage.setItem("user", JSON.stringify(loginResponse.data.user));
+            localStorage.setItem(
+              "user",
+              JSON.stringify(loginResponse.data.user)
+            );
 
             navigate("/dashboard");
           } catch (loginError) {
@@ -140,6 +144,7 @@ const SignUp = () => {
                   />
                 </div>
 
+<div className="text-center m-3"><span>OR</span></div>
                 <div className="form-floating mb-3">
                   <select
                     name="role"
@@ -152,6 +157,7 @@ const SignUp = () => {
                     <option value="" disabled>
                       Select a role
                     </option>
+                    <option value="admin">Admin</option>
                     <option value="sales_manager">Sales Manager</option>
                     <option value="sales_representative">
                       Sales Representative

@@ -1,153 +1,192 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Bar, Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-import { CChart } from '@coreui/react-chartjs';
-// import { Utils } from 'chart.js/helpers';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 
-// Registering Chart.js components
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, LineElement, Title, Tooltip, Legend);
 
-const Report = () => {
+const CRMReport = () => {
+  const [salesData, setSalesData] = useState([]);
+  const [customerData, setCustomerData] = useState([]);
+  const [reportData, setReportData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = localStorage.getItem("token");
+
+      try {
+        const salesResponse = await axios.get('https://localhost:7192/api/Interaction/report', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log("Sales Data:", salesResponse.data);
+        setSalesData(salesResponse.data);
+
+        const customerResponse = await axios.get('https://localhost:7192/api/Customers/distribution', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log("Customer Data:", customerResponse.data);
+        setCustomerData(customerResponse.data);
+
+        const reportResponse = await axios.get('https://localhost:7192/api/Reports/monthlyReport', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log("Report Data:", reportResponse.data);
+        setReportData(reportResponse.data);
+
+        console.log("Data fetched successfully");
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!salesData.length || !customerData.length || !reportData.length) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="container">
-      <div className="row">
-        <div className="col-12 col-sm-6 col-md-6"><BarChart /></div>
-        <div className="col-12 col-sm-6 col-md-6"><Chart /></div>
+    <h1 className="text-center my-4">CRM System Report</h1>
+    <div className="row">
+      <div className="col-md-6 mb-4">
+        <div className="card">
+          <div className="card-body">
+            <SalesActivityChart data={salesData} />
+          </div>
+        </div>
       </div>
-      <div className="row">
-        <div className="col-12 col-sm-6 col-md-6"><PieChart /></div>
-        <div className="col-12 col-sm-6 col-md-6">Reports</div>
+      <div className="col-md-6 mb-4">
+        <div className="card">
+          <div className="card-body">
+            <SalesPerformanceChart data={reportData} />
+          </div>
+        </div>
       </div>
     </div>
+    <div className="row">
+      <div className="col-6">
+        <div className="card">
+          <div className="card-body">
+            <CustomerDistributionChart data={customerData} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   );
 };
 
-const Chart = () => (
-  <div className="">
-    <CChart
-      type="doughnut"
-      data={{
-        labels: ["Sales", "Support", "Success", "Issues"],
-        datasets: [
-          {
-            backgroundColor: ["#41B883", "#E46651", "#00D8FF", "#DD1B16"],
-            data: [40, 20, 80, 10],
-          },
-        ],
-      }}
-      options={{
-        plugins: {
-          legend: {
-            labels: {
-              color: "#000000", // Set a default color or use any CSS color value
-            },
-          },
-        },
-      }}
-    />
-  </div>
-);
+const SalesActivityChart = ({ data }) => {
+  const aggregatedData = data.reduce((acc, item) => {
+    if (!acc[item.month]) {
+      acc[item.month] = 0;
+    }
+    acc[item.month] += item.totalInteractions;
+    return acc;
+  }, {});
 
-const BarChart = () => {
-  // Custom function to generate month names for labels
-  const getMonthLabels = (count) => {
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    return months.slice(0, count);
-  };
-
-  const labels = getMonthLabels(7); // Generate 7 month labels
-
-  const data = {
-    labels: labels,
+  const chartData = {
+    labels: Object.keys(aggregatedData),
     datasets: [{
-      label: 'My First Dataset',
-      data: [65, 59, 80, 81, 56, 55, 40],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(255, 205, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(201, 203, 207, 0.2)'
-      ],
-      borderColor: [
-        'rgb(255, 99, 132)',
-        'rgb(255, 159, 64)',
-        'rgb(255, 205, 86)',
-        'rgb(75, 192, 192)',
-        'rgb(54, 162, 235)',
-        'rgb(153, 102, 255)',
-        'rgb(201, 203, 207)'
-      ],
+      label: 'Sales Activities',
+      data: Object.values(aggregatedData),
+      backgroundColor: 'rgba(75, 192, 192, 0.6)',
+      borderColor: 'rgba(75, 192, 192, 1)',
       borderWidth: 1
     }]
   };
 
   return (
-    <div>
-      <h2>My Bar Chart</h2>
+    <div >
+      <h2 className="text-xl font-semibold mb-2">Sales Activities</h2>
       <Bar
-        data={data}
+        data={chartData}
         options={{
-          responsive: true,
-          plugins: {
-            legend: {
-              position: 'top',
-            },
-            tooltip: {
-              callbacks: {
-                label: (tooltipItem) => `${tooltipItem.dataset.label}: ${tooltipItem.raw}`,
-              },
-            },
-          },
           scales: {
-            x: {
-              stacked: true,
-            },
             y: {
-              stacked: true,
-            },
-          },
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Number of Activities'
+              }
+            }
+          }
         }}
       />
     </div>
   );
 };
 
-
-
-// ChartJS.register(ArcElement, Tooltip, Legend)
-const PieChart = () => {
-  const data = {
-    labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue'],
+const CustomerDistributionChart = ({ data }) => {
+  const chartData = {
+    labels: data.map(item => item.state),
     datasets: [{
-      label: 'My First Dataset',
-      data: [11, 16, 7, 3, 14],
+      data: data.map(item => item.totalCustomers),
       backgroundColor: [
-        'rgb(255, 99, 132)',
-        'rgb(75, 192, 192)',
-        'rgb(255, 205, 86)',
-        'rgb(201, 203, 207)',
-        'rgb(54, 162, 235)'
-      ]
+        'rgba(255, 99, 132, 0.6)',
+        'rgba(54, 162, 235, 0.6)',
+        'rgba(255, 206, 86, 0.6)',
+        'rgba(75, 192, 192, 0.6)',
+        'rgba(153, 102, 255, 0.6)',
+        'rgba(255, 159, 64, 0.6)',
+        'rgba(199, 199, 199, 0.6)',
+        'rgba(83, 102, 255, 0.6)',
+        'rgba(255, 99, 71, 0.6)',
+        'rgba(128, 128, 128, 0.6)'
+      ],
     }]
   };
 
   return (
-    <div>
-      <h2>My Pie Chart</h2>
-      <Pie data={data} />
+    <div >
+      <h2 className="text-xl font-semibold mb-2">Customer Distribution by State</h2>
+      <Pie data={chartData} />
     </div>
   );
 };
 
+const SalesPerformanceChart = ({ data }) => {
+  const aggregatedData = data.reduce((acc, item) => {
+    if (!acc[item.month]) {
+      acc[item.month] = 0;
+    }
+    acc[item.month] += item.totalReports;
+    return acc;
+  }, {});
 
-export default Report;
+  const chartData = {
+    labels: Object.keys(aggregatedData),
+    datasets: [{
+      label: 'Reports Generated',
+      data: Object.values(aggregatedData),
+      backgroundColor: 'rgba(255, 159, 64, 0.6)',
+      borderColor: 'rgba(255, 159, 64, 1)',
+      borderWidth: 1
+    }]
+  };
+
+  return (
+    <div >
+      <h2 className="text-xl font-semibold mb-2">Report Generation Trends</h2>
+      <Bar
+        data={chartData}
+        options={{
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Total Reports'
+              }
+            }
+          }
+        }}
+      />
+    </div>
+  );
+};
+
+export default CRMReport;

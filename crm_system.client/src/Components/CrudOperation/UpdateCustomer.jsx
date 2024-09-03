@@ -20,6 +20,7 @@ const UpdateCustomerDetails = () => {
   const [error, setError] = useState(null);
 
   const [customerId, setCustomerId] = useState(null); // State for the customer ID from input
+  const [formErrors, setFormErrors] = useState({}); // State for form validation errors
 
   const token = localStorage.getItem("token");
   const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -53,7 +54,7 @@ const UpdateCustomerDetails = () => {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text:  err? err.response.data : "Failed to fetch customer data",
+        text: err.response ? err.response.data : "Failed to fetch customer data",
       });
     } finally {
       setIsLoading(false);
@@ -71,6 +72,34 @@ const UpdateCustomerDetails = () => {
     }
   };
 
+  const validateForm = () => {
+    const errors = {};
+    if (!customer.name.trim()) errors.name = "Name is required";
+    else if (!/^[a-zA-Z\s]+$/.test(customer.name)) errors.name = "Name must contain only letters and spaces";
+    
+    if (!customer.email.trim()) errors.email = "Email is required";
+    else if (!/\S+@\S+\.\S+/.test(customer.email)) errors.email = "Email is invalid";
+    
+    if (customer.phone && !/^\d{10}$/.test(customer.phone)) errors.phone = "Phone number must be exactly 10 digits";
+    
+    if (!customer.zipCode.trim()) errors.zipCode = "Zip Code is required";
+    else if (!/^\d{5,6}$/.test(customer.zipCode)) errors.zipCode = "Zip Code must be 5 or 6 digits";
+    
+    if (!customer.country.trim()) errors.country = "Country is required";
+    else if (!/^[a-zA-Z\s]+$/.test(customer.country)) errors.country = "Country must contain only letters and spaces";
+    
+    if (!customer.state.trim()) errors.state = "State is required";
+    else if (!/^[a-zA-Z\s]+$/.test(customer.state)) errors.state = "State must contain only letters and spaces";
+    
+    if (!customer.city.trim()) errors.city = "City is required";
+    else if (!/^[a-zA-Z\s]+$/.test(customer.city)) errors.city = "City must contain only letters and spaces";
+    
+    if (!customer.address.trim()) errors.address = "Address is required";
+    
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCustomer((prevCustomer) => ({
@@ -81,6 +110,7 @@ const UpdateCustomerDetails = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
     try {
       const updatedCustomer = {
         ...customer,
@@ -116,6 +146,7 @@ const UpdateCustomerDetails = () => {
 
   const handleReset = () => {
     setCustomer(originalCustomer);
+    setFormErrors({});
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -154,6 +185,7 @@ const UpdateCustomerDetails = () => {
                 onChange={handleInputChange}
                 required
               />
+              {formErrors.name && <div className="text-danger">{formErrors.name}</div>}
             </div>
             <div className="col-md-6">
               <label className="form-label">Email:</label>
@@ -165,6 +197,7 @@ const UpdateCustomerDetails = () => {
                 onChange={handleInputChange}
                 required
               />
+              {formErrors.email && <div className="text-danger">{formErrors.email}</div>}
             </div>
           </div>
           <div className="row mb-3">
@@ -177,6 +210,7 @@ const UpdateCustomerDetails = () => {
                 value={customer.phone}
                 onChange={handleInputChange}
               />
+              {formErrors.phone && <div className="text-danger">{formErrors.phone}</div>}
             </div>
             <div className="col-md-6">
               <label className="form-label">Address:</label>
@@ -187,6 +221,7 @@ const UpdateCustomerDetails = () => {
                 value={customer.address}
                 onChange={handleInputChange}
               ></textarea>
+              {formErrors.address && <div className="text-danger">{formErrors.address}</div>}
             </div>
           </div>
           <div className="row mb-3">
@@ -199,6 +234,7 @@ const UpdateCustomerDetails = () => {
                 value={customer.city}
                 onChange={handleInputChange}
               />
+              {formErrors.city && <div className="text-danger">{formErrors.city}</div>}
             </div>
             <div className="col-md-6">
               <label className="form-label">State:</label>
@@ -209,6 +245,7 @@ const UpdateCustomerDetails = () => {
                 value={customer.state}
                 onChange={handleInputChange}
               />
+              {formErrors.state && <div className="text-danger">{formErrors.state}</div>}
             </div>
           </div>
           <div className="row mb-3">
@@ -221,6 +258,7 @@ const UpdateCustomerDetails = () => {
                 value={customer.zipCode}
                 onChange={handleInputChange}
               />
+              {formErrors.zipCode && <div className="text-danger">{formErrors.zipCode}</div>}
             </div>
             <div className="col-md-6">
               <label className="form-label">Country:</label>
@@ -231,6 +269,7 @@ const UpdateCustomerDetails = () => {
                 value={customer.country}
                 onChange={handleInputChange}
               />
+              {formErrors.country && <div className="text-danger">{formErrors.country}</div>}
             </div>
           </div>
           <div className="d-flex flex-column flex-md-row justify-content-between mt-4">

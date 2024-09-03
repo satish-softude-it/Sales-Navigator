@@ -1,6 +1,32 @@
-import React from "react";
+import React, { useRef } from "react";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    emailjs
+    .sendForm(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID, // Use VITE_EMAILJS_ prefix
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID, // Use VITE_EMAILJS_ prefix
+      form.current,
+      import.meta.env.VITE_EMAILJS_PUBLIC_ID // Use VITE_EMAILJS_ prefix
+    )
+    .then(
+      (result) => {
+        alert("Message sent successfully!");
+        console.log("SUCCESS!", result.text);
+        // Reset form after success
+        form.current.reset();
+      },
+      (error) => {
+        alert("Failed to send message, please try again.");
+        console.log("FAILED...", error.text);
+      }
+    );
+  };
+
   return (
     <section id="contact" className="contact section">
       {/* Section Title */}
@@ -16,11 +42,7 @@ const Contact = () => {
       <div className="container" data-aos="fade" data-aos-delay="100">
         <div className="row gy-4">
           <div className="col-lg-4">
-            <div
-              className="info-item    "
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
+            <div className="info-item" data-aos="fade-up" data-aos-delay="200">
               <div>
                 <h3>Address</h3>
                 <p>B2C, Software Guru, Indore, India</p>
@@ -36,7 +58,7 @@ const Contact = () => {
             </div>
             {/* End Info Item */}
 
-            <div className="info-item " data-aos="fade-up" data-aos-delay="400">
+            <div className="info-item" data-aos="fade-up" data-aos-delay="400">
               <div>
                 <h3>Email Us</h3>
                 <p>crm@sales.navigator.com</p>
@@ -47,8 +69,8 @@ const Contact = () => {
 
           <div className="col-lg-8">
             <form
-              action="forms/contact.php"
-              method="post"
+              ref={form}
+              onSubmit={sendEmail}
               className="php-email-form"
               data-aos="fade-up"
               data-aos-delay="200"
@@ -57,7 +79,7 @@ const Contact = () => {
                 <div className="col-md-6">
                   <input
                     type="text"
-                    name="name"
+                    name="user_name"
                     className="form-control"
                     placeholder="Your Name"
                     required
@@ -67,8 +89,8 @@ const Contact = () => {
                 <div className="col-md-6">
                   <input
                     type="email"
+                    name="user_email"
                     className="form-control"
-                    name="email"
                     placeholder="Your Email"
                     required
                   />
@@ -95,12 +117,6 @@ const Contact = () => {
                 </div>
 
                 <div className="col-md-12 text-center">
-                  <div className="loading">Loading</div>
-                  <div className="error-message"></div>
-                  <div className="sent-message">
-                    Your message has been sent. Thank you!
-                  </div>
-
                   <button type="submit">Send Message</button>
                 </div>
               </div>

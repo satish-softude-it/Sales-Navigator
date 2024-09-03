@@ -10,6 +10,7 @@
     <PackageJsonScriptsLint Condition="$(PackageJsonScriptsLint) == ''">eslint .</PackageJsonScriptsLint>
     <PackageJsonScriptsPreview Condition="$(PackageJsonScriptsPreview) == ''">vite preview</PackageJsonScriptsPreview>
     <PackageJsonDependenciesCoreuiReactChartjs Condition="$(PackageJsonDependenciesCoreuiReactChartjs) == ''">^3.0.0</PackageJsonDependenciesCoreuiReactChartjs>
+    <PackageJsonDependenciesEmailjsBrowser Condition="$(PackageJsonDependenciesEmailjsBrowser) == ''">^4.4.1</PackageJsonDependenciesEmailjsBrowser>
     <PackageJsonDependenciesRadixUiReactDialog Condition="$(PackageJsonDependenciesRadixUiReactDialog) == ''">^1.1.1</PackageJsonDependenciesRadixUiReactDialog>
     <PackageJsonDependenciesReactOauthGoogle Condition="$(PackageJsonDependenciesReactOauthGoogle) == ''">^0.12.1</PackageJsonDependenciesReactOauthGoogle>
     <PackageJsonDependenciesShadcnUi Condition="$(PackageJsonDependenciesShadcnUi) == ''">^0.0.4</PackageJsonDependenciesShadcnUi>

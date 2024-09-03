@@ -25,13 +25,13 @@ public partial class CrmSystemDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=SIPLED-SV\\MSSQLSERVERSV;Database=CRM_SYSTEM_DB; Trusted_Connection=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=SIPLED-SV\\MSSQLSERVERSV;Database=CRM_SYSTEM_DB;Trusted_Connection=True;TrustServerCertificate=True;Command Timeout=300;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.HasKey(e => e.CustomerId).HasName("PK__Customer__A4AE64B8BB3BFF74");
+            entity.HasKey(e => e.CustomerId).HasName("PK__Customer__A4AE64B81BAAD1BC");
 
             entity.ToTable("Customers", "dbo");
 
@@ -69,40 +69,43 @@ public partial class CrmSystemDbContext : DbContext
 
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.CustomerCreatedByNavigations)
                 .HasForeignKey(d => d.CreatedBy)
-                .HasConstraintName("FK__Customers__Creat__5070F446");
+                .HasConstraintName("FK__Customers__Creat__0D7A0286");
 
             entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.CustomerUpdatedByNavigations)
                 .HasForeignKey(d => d.UpdatedBy)
-                .HasConstraintName("FK__Customers__Updat__5165187F");
+                .HasConstraintName("FK__Customers__Updat__0E6E26BF");
         });
 
         modelBuilder.Entity<Interaction>(entity =>
         {
-            entity.HasKey(e => e.InteractionId).HasName("PK__Interact__922C049675CEAC44");
+            entity.HasKey(e => e.InteractionId).HasName("PK__Interact__922C0376C6711445");
 
             entity.ToTable("Interactions", "dbo");
 
+            entity.Property(e => e.InteractionId).HasColumnName("InteractionID");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+            entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
             entity.Property(e => e.InteractionDate).HasColumnType("datetime");
             entity.Property(e => e.InteractionType).HasMaxLength(50);
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+            entity.Property(e => e.UserId).HasColumnName("UserID");
 
             entity.HasOne(d => d.Customer).WithMany(p => p.Interactions)
                 .HasForeignKey(d => d.CustomerId)
-                .HasConstraintName("FK__Interacti__Custo__59063A47");
+                .HasConstraintName("FK__Interacti__Custo__18EBB532");
 
             entity.HasOne(d => d.User).WithMany(p => p.Interactions)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Interacti__UserI__59FA5E80");
+                .HasConstraintName("FK__Interacti__UserI__19DFD96B");
         });
 
         modelBuilder.Entity<Report>(entity =>
         {
-            entity.HasKey(e => e.ReportId).HasName("PK__Reports__D5BD48E5FA1508A2");
+            entity.HasKey(e => e.ReportId).HasName("PK__Reports__D5BD48E53BD632DD");
 
             entity.ToTable("Reports", "dbo");
 
@@ -115,16 +118,16 @@ public partial class CrmSystemDbContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.Reports)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Reports__UserID__5629CD9C");
+                .HasConstraintName("FK__Reports__UserID__1332DBDC");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC3A48269A");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC65E75FFB");
 
             entity.ToTable("Users", "dbo");
 
-            entity.HasIndex(e => e.Email, "UQ__Users__A9D1053482F1275C").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Users__A9D105347E5831F6").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("UserID");
             entity.Property(e => e.CreatedAt)
