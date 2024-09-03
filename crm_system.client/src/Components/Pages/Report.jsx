@@ -1,24 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import { Bar, Pie, Doughnut } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend } from 'chart.js';
+import axios from 'axios';
+import { Bar, Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, LineElement, Title, Tooltip, Legend);
 
 const CRMReport = () => {
-  const [salesData, setSalesData] = useState(null);
-  const [customerData, setCustomerData] = useState(null);
+  const [salesData, setSalesData] = useState([]);
+  const [customerData, setCustomerData] = useState([]);
+  const [reportData, setReportData] = useState([]);
 
   useEffect(() => {
-    // Fetch data from your API
     const fetchData = async () => {
-      try {
-        const salesResponse = await fetch('/api/reports/sales');
-        const salesJson = await salesResponse.json();
-        setSalesData(salesJson);
+      const token = localStorage.getItem("token");
 
-        const customerResponse = await fetch('/api/reports/customers');
-        const customerJson = await customerResponse.json();
-        setCustomerData(customerJson);
+      try {
+        const salesResponse = await axios.get('https://localhost:7192/api/Interaction/report', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log("Sales Data:", salesResponse.data);
+        setSalesData(salesResponse.data);
+
+        const customerResponse = await axios.get('https://localhost:7192/api/Customers/distribution', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log("Customer Data:", customerResponse.data);
+        setCustomerData(customerResponse.data);
+
+        const reportResponse = await axios.get('https://localhost:7192/api/Reports/monthlyReport', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log("Report Data:", reportResponse.data);
+        setReportData(reportResponse.data);
+
+        console.log("Data fetched successfully");
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -27,37 +42,57 @@ const CRMReport = () => {
     fetchData();
   }, []);
 
-  if (!salesData || !customerData) {
+  if (!salesData.length || !customerData.length || !reportData.length) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className="container">
-      <h1 className="text-2xl font-bold mb-4">CRM System Report</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <SalesActivityChart data={salesData} />
+    <h1 className="text-center my-4">CRM System Report</h1>
+    <div className="row">
+      <div className="col-md-6 mb-4">
+        <div className="card">
+          <div className="card-body">
+            <SalesActivityChart data={salesData} />
+          </div>
         </div>
-        <div>
-          <CustomerDistributionChart data={customerData} />
-        </div>
-        <div>
-          <SalesPerformanceChart data={salesData} />
-        </div>
-        <div>
-          <CustomerGrowthChart data={customerData} />
+      </div>
+      <div className="col-md-6 mb-4">
+        <div className="card">
+          <div className="card-body">
+            <SalesPerformanceChart data={reportData} />
+          </div>
         </div>
       </div>
     </div>
+    <div className="row">
+      <div className="col-6">
+        <div className="card">
+          <div className="card-body">
+            <CustomerDistributionChart data={customerData} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   );
 };
 
 const SalesActivityChart = ({ data }) => {
+  const aggregatedData = data.reduce((acc, item) => {
+    if (!acc[item.month]) {
+      acc[item.month] = 0;
+    }
+    acc[item.month] += item.totalInteractions;
+    return acc;
+  }, {});
+
   const chartData = {
-    labels: data.map(item => item.month),
+    labels: Object.keys(aggregatedData),
     datasets: [{
       label: 'Sales Activities',
-      data: data.map(item => item.activityCount),
+      data: Object.values(aggregatedData),
       backgroundColor: 'rgba(75, 192, 192, 0.6)',
       borderColor: 'rgba(75, 192, 192, 1)',
       borderWidth: 1
@@ -65,7 +100,7 @@ const SalesActivityChart = ({ data }) => {
   };
 
   return (
-    <div>
+    <div >
       <h2 className="text-xl font-semibold mb-2">Sales Activities</h2>
       <Bar
         data={chartData}
@@ -89,19 +124,24 @@ const CustomerDistributionChart = ({ data }) => {
   const chartData = {
     labels: data.map(item => item.state),
     datasets: [{
-      data: data.map(item => item.customerCount),
+      data: data.map(item => item.totalCustomers),
       backgroundColor: [
         'rgba(255, 99, 132, 0.6)',
         'rgba(54, 162, 235, 0.6)',
         'rgba(255, 206, 86, 0.6)',
         'rgba(75, 192, 192, 0.6)',
         'rgba(153, 102, 255, 0.6)',
+        'rgba(255, 159, 64, 0.6)',
+        'rgba(199, 199, 199, 0.6)',
+        'rgba(83, 102, 255, 0.6)',
+        'rgba(255, 99, 71, 0.6)',
+        'rgba(128, 128, 128, 0.6)'
       ],
     }]
   };
 
   return (
-    <div>
+    <div >
       <h2 className="text-xl font-semibold mb-2">Customer Distribution by State</h2>
       <Pie data={chartData} />
     </div>
@@ -109,11 +149,19 @@ const CustomerDistributionChart = ({ data }) => {
 };
 
 const SalesPerformanceChart = ({ data }) => {
+  const aggregatedData = data.reduce((acc, item) => {
+    if (!acc[item.month]) {
+      acc[item.month] = 0;
+    }
+    acc[item.month] += item.totalReports;
+    return acc;
+  }, {});
+
   const chartData = {
-    labels: data.map(item => item.salesperson),
+    labels: Object.keys(aggregatedData),
     datasets: [{
-      label: 'Sales Performance',
-      data: data.map(item => item.salesAmount),
+      label: 'Reports Generated',
+      data: Object.values(aggregatedData),
       backgroundColor: 'rgba(255, 159, 64, 0.6)',
       borderColor: 'rgba(255, 159, 64, 1)',
       borderWidth: 1
@@ -121,8 +169,8 @@ const SalesPerformanceChart = ({ data }) => {
   };
 
   return (
-    <div>
-      <h2 className="text-xl font-semibold mb-2">Sales Performance</h2>
+    <div >
+      <h2 className="text-xl font-semibold mb-2">Report Generation Trends</h2>
       <Bar
         data={chartData}
         options={{
@@ -131,40 +179,7 @@ const SalesPerformanceChart = ({ data }) => {
               beginAtZero: true,
               title: {
                 display: true,
-                text: 'Sales Amount ($)'
-              }
-            }
-          }
-        }}
-      />
-    </div>
-  );
-};
-
-const CustomerGrowthChart = ({ data }) => {
-  const chartData = {
-    labels: data.map(item => item.month),
-    datasets: [{
-      label: 'New Customers',
-      data: data.map(item => item.newCustomers),
-      borderColor: 'rgba(75, 192, 192, 1)',
-      tension: 0.1,
-      fill: false
-    }]
-  };
-
-  return (
-    <div>
-      <h2 className="text-xl font-semibold mb-2">Customer Growth</h2>
-      <Line
-        data={chartData}
-        options={{
-          scales: {
-            y: {
-              beginAtZero: true,
-              title: {
-                display: true,
-                text: 'Number of New Customers'
+                text: 'Total Reports'
               }
             }
           }

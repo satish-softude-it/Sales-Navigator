@@ -1,6 +1,19 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+
+const countriesWithStates = {
+  India: [
+    "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", 
+    "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", 
+    "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", 
+    "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", 
+    "Uttar Pradesh", "Uttarakhand", "West Bengal"
+  ],
+  USA: ["California", "Texas", "New York", "Florida", "Illinois"],
+  Canada: ["Ontario", "Quebec", "British Columbia", "Alberta", "Manitoba"],
+  // Add more countries and their states as needed
+};
 
 const AddCustomerDetails = () => {
   const token = localStorage.getItem("token");
@@ -12,9 +25,9 @@ const AddCustomerDetails = () => {
     phone: "",
     address: "",
     city: "",
-    state: "",
+    state: "Andhra Pradesh", // Default state
     zipCode: "",
-    country: "",
+    country: "India", // Default country
     createdBy: userId,
     dateCreated: new Date().toISOString(),
     updatedBy: null,
@@ -23,6 +36,8 @@ const AddCustomerDetails = () => {
 
   const [formData, setFormData] = useState(initialFormState);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [states, setStates] = useState(countriesWithStates[initialFormState.country]);
+  const [errors, setErrors] = useState({});
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
@@ -30,11 +45,75 @@ const AddCustomerDetails = () => {
       ...prevData,
       [name]: value,
     }));
+    validateField(name, value);
   }, []);
+
+  const handleCountryChange = (e) => {
+    const selectedCountry = e.target.value;
+    setFormData(prevData => ({
+      ...prevData,
+      country: selectedCountry,
+      state: "" // Reset state when country changes
+    }));
+    setStates(countriesWithStates[selectedCountry] || []);
+  };
+
+  const validateField = (name, value) => {
+    let error = '';
+    
+    switch (name) {
+      case 'name':
+        error = value.trim() === '' ? 'Name is required' : '';
+        break;
+      case 'email':
+        // Regex for email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+        const emailParts = value.split('@');
+        const domainParts = emailParts[1]?.split('.');
+
+        // Check the email format
+        error = !emailRegex.test(value) ? 'Invalid email address' : '';
+
+        // Additional checks
+        if (emailParts.length !== 2 || domainParts.length < 2) {
+          error = 'Email address must have a prefix, domain name, and domain name identifier';
+        }
+        break;
+      case 'phone':
+        error = !/^\d{10}$/.test(value) ? 'Phone number must be exactly 10 digits' : '';
+        break;
+      case 'zipCode':
+        error = !/^\d{6}$/.test(value) ? 'Zip code must be exactly 6 digits' : '';
+        break;
+      case 'city':
+        error = value.trim() === '' ? 'City is required' : '';
+        break;
+      case 'state':
+        error = value.trim() === '' ? 'State is required' : '';
+        break;
+      default:
+        break;
+    }
+
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [name]: error
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    // Validate all fields
+    Object.keys(formData).forEach(field => validateField(field, formData[field]));
+
+    // Check for errors
+    if (Object.values(errors).some(error => error !== '')) {
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const response = await axios.post(
         `https://localhost:7192/api/Customers`,
@@ -53,6 +132,8 @@ const AddCustomerDetails = () => {
         text: "Customer added successfully",
       });
       setFormData(initialFormState);  // Reset form after successful submission
+      setStates(countriesWithStates[initialFormState.country]); // Reset states to default
+      setErrors({});
     } catch (err) {
       console.error("Submission Error:", err.response ? err.response.data : err.message);
       Swal.fire({
@@ -65,7 +146,11 @@ const AddCustomerDetails = () => {
     }
   };
 
-  const handleReset = () => setFormData(initialFormState);
+  const handleReset = () => {
+    setFormData(initialFormState);
+    setStates(countriesWithStates[initialFormState.country]);
+    setErrors({});
+  };
 
   return (
     <form className="container my-4" onSubmit={handleSubmit}>
@@ -82,6 +167,7 @@ const AddCustomerDetails = () => {
             onChange={handleChange}
             required
           />
+          {errors.name && <div className="text-danger">{errors.name}</div>}
         </div>
         <div className="col-md-6">
           <label className="form-label">Email:</label>
@@ -94,19 +180,21 @@ const AddCustomerDetails = () => {
             onChange={handleChange}
             required
           />
+          {errors.email && <div className="text-danger">{errors.email}</div>}
         </div>
       </div>
       <div className="row mb-3">
         <div className="col-md-6">
           <label className="form-label">Phone:</label>
           <input
-            type="number"
+            type="text"
             name="phone"
             className="form-control"
             placeholder="Enter phone number"
             value={formData.phone}
             onChange={handleChange}
           />
+          {errors.phone && <div className="text-danger">{errors.phone}</div>}
         </div>
         <div className="col-md-6">
           <label className="form-label">Address:</label>
@@ -130,42 +218,52 @@ const AddCustomerDetails = () => {
             placeholder="Enter city"
             value={formData.city}
             onChange={handleChange}
+            required
           />
+          {errors.city && <div className="text-danger">{errors.city}</div>}
         </div>
         <div className="col-md-6">
-          <label className="form-label">State:</label>
-          <input
-            type="text"
-            name="state"
-            className="form-control"
-            placeholder="Enter state"
-            value={formData.state}
-            onChange={handleChange}
-          />
+          <label className="form-label">Country:</label>
+          <select
+            name="country"
+            className="form-select"
+            value={formData.country}
+            onChange={handleCountryChange}
+          >
+            {Object.keys(countriesWithStates).map((country) => (
+              <option key={country} value={country}>{country}</option>
+            ))}
+          </select>
         </div>
       </div>
       <div className="row mb-3">
         <div className="col-md-6">
+          <label className="form-label">State:</label>
+          <select
+            name="state"
+            className="form-select"
+            value={formData.state}
+            onChange={handleChange}
+            required
+          >
+            <option value="" disabled>Select state</option>
+            {states.map((state) => (
+              <option key={state} value={state}>{state}</option>
+            ))}
+          </select>
+          {errors.state && <div className="text-danger">{errors.state}</div>}
+        </div>
+        <div className="col-md-6">
           <label className="form-label">Zip Code:</label>
           <input
-            type="number"
+            type="text"
             name="zipCode"
             className="form-control"
             placeholder="Enter zip code"
             value={formData.zipCode}
             onChange={handleChange}
           />
-        </div>
-        <div className="col-md-6">
-          <label className="form-label">Country:</label>
-          <input
-            type="text"
-            name="country"
-            className="form-control"
-            placeholder="Enter country"
-            value={formData.country}
-            onChange={handleChange}
-          />
+          {errors.zipCode && <div className="text-danger">{errors.zipCode}</div>}
         </div>
       </div>
       <div className="d-flex flex-column flex-md-row justify-content-between mt-4">

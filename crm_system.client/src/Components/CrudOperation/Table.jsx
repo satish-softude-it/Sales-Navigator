@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { ArrowUpDown, Users, Download, X } from "lucide-react";
+import { ArrowUpDown, Users, Download } from "lucide-react";
 import * as XLSX from "xlsx";
 
 const Table = () => {
@@ -20,7 +20,7 @@ const Table = () => {
 
   const fetchData = async () => {
     setIsLoading(true);
-    try {
+    try { 
       const response = await axios.get("https://localhost:7192/api/Customers", {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -106,6 +106,10 @@ const Table = () => {
     setSelectedCustomer(customer);
   };
 
+  const formatKey = (key) => {
+    return key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1');
+  };
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -127,7 +131,6 @@ const Table = () => {
               Download Excel
             </button>
             <div className="m-1 btn btn-info d-flex align-items-center">
-              {/* <Users size={24} className="me-2" /> */}
               <div>
                 <strong>Total Customers:</strong>
                 <span className="fs-5"> {customerStats.totalCustomers}</span>
@@ -140,30 +143,31 @@ const Table = () => {
               <thead className="table-light">
                 <tr>
                   {columns
-                       .filter((column) => column !== 'interactions')
-                  .map((column) => (
-                    <th
-                      key={column}
-                      scope="col"
-                      onClick={() => handleSort(column)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      {column[0].toUpperCase() + column.slice(1)} <ArrowUpDown size={16} />
-                    </th>
-                  ))}
+                    .filter((column) => column !== 'interactions')
+                    .map((column) => (
+                      <th
+                        key={column}
+                        scope="col"
+                        onClick={() => handleSort(column)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        {formatKey(column)} <ArrowUpDown size={16} />
+                      </th>
+                    ))}
                 </tr>
               </thead>
               <tbody>
                 {sortedData.map((item) => (
                   <tr key={item.id} onClick={() => handleRowClick(item)} style={{ cursor: "pointer" }}>
                     {columns
-                         .filter((column) => column !== 'interactions').map((column) => (
-                      <td key={column}>
-                        {typeof item[column] === "string" && item[column].includes("T")
-                          ? formatDate(item[column])
-                          : item[column]}
-                      </td>
-                    ))}
+                      .filter((column) => column !== 'interactions')
+                      .map((column) => (
+                        <td key={column}>
+                          {typeof item[column] === "string" && item[column].includes("T")
+                            ? formatDate(item[column])
+                            : item[column]}
+                        </td>
+                      ))}
                   </tr>
                 ))}
               </tbody>
@@ -173,27 +177,31 @@ const Table = () => {
       </div>
 
       {selectedCustomer && (
-  <div className="modal" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-    <div className="modal-dialog">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h5 className="modal-title">Customer Details</h5>
-          <button type="button" className="btn-close" onClick={() => setSelectedCustomer(null)}></button>
+        <div className="modal" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Customer Details</h5>
+                <button type="button" className="btn-close" onClick={() => setSelectedCustomer(null)}></button>
+              </div>
+              <div className="modal-body">
+                <table className="table table-bordered">
+                  <tbody>
+                    {Object.entries(selectedCustomer)
+                      .filter(([key]) => !['createdByNavigation', 'updatedByNavigation', 'interactions'].includes(key))
+                      .map(([key, value]) => (
+                        <tr key={key}>
+                          <td><strong>{formatKey(key)}:</strong></td>
+                          <td>{value}</td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="modal-body">
-          {Object.entries(selectedCustomer)
-            .filter(([key]) => !['createdByNavigation', 'updatedByNavigation', 'interactions'].includes(key))
-            .map(([key, value]) => (
-              <p key={key}>
-                <strong>{key}:</strong> {value}
-              </p>
-            ))}
-        </div>
-      </div>
-    </div>
-  </div>
-)}
-
+      )}
     </div>
   );
 };

@@ -3,6 +3,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
+const serverPort = import.meta.env.VITE_SERVER_PORT;
+const loginApi = `${serverPort}${import.meta.env.VITE_LOGIN_API}`;
+
 const SignIn = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -26,7 +29,7 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://localhost:7192/api/Users/login', formData);
+      const response = await axios.post(loginApi, formData);
       console.log("Response : "+JSON.stringify(response.data));
       
       // Store token
@@ -92,7 +95,8 @@ const SignIn = () => {
                 <button className="btn btn-primary w-100 mb-3" type="submit">Sign In</button>
 
                 <div className="d-flex justify-content-between mb-3" style={{fontSize:'0.9rem'}}>
-                  <a href="#" onClick={handleNavigation("/forgotPassword")}>Forgot Password?</a>
+                  {/* <a href="#" onClick={handleNavigation("/forgotPassword")}>Forgot Password?</a> */}
+                  <a href="#" onClick={handleNavigation("/")}> {'<-'} Home Page</a>
                   <a href="#" onClick={handleNavigation("/signUp")}> <small className="text-black">New User?</small> Sign Up</a>
                 </div>
 

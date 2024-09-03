@@ -2,14 +2,23 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
+const serverPort = import.meta.env.VITE_SERVER_PORT;
+
 const Profile = () => {
   const [profileData, setProfileData] = useState({
     name: "",
     email: "",
     role: "",
   });
+  const [originalData, setOriginalData] = useState({
+    name: "",
+    email: "",
+    role: "",
+  });
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [formErrors, setFormErrors] = useState({});
+  const [hasChanges, setHasChanges] = useState(false);
 
   const token = localStorage.getItem("token");
   const user = JSON.parse(localStorage.getItem("user"));
@@ -22,7 +31,7 @@ const Profile = () => {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `https://localhost:7192/api/Users/${user.userId}`,
+        `${serverPort}/Users/${user.userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -30,6 +39,7 @@ const Profile = () => {
         }
       );
       setProfileData(response.data);
+      setOriginalData(response.data); // Save the original data
     } catch (err) {
       console.error(err);
       setError("Failed to fetch profile data");
@@ -43,11 +53,23 @@ const Profile = () => {
     }
   };
 
+  const validateForm = () => {
+    const errors = {};
+    if (!profileData.name) errors.name = "Name is required";
+    if (!profileData.email) errors.email = "Email is required";
+    else if (!/\S+@\S+\.\S+/.test(profileData.email)) errors.email = "Email is invalid";
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     try {
       const response = await axios.put(
-        `https://localhost:7192/api/Users/${user.userId}`,
+        `${serverPort}/Users/${user.userId}`,
         profileData,
         {
           headers: {
@@ -63,6 +85,7 @@ const Profile = () => {
       });
       const updatedUser = { ...user, ...profileData };
       localStorage.setItem("user", JSON.stringify(updatedUser));
+      setOriginalData(profileData); // Update the original data after successful update
     } catch (err) {
       console.error(err);
       Swal.fire({
@@ -75,10 +98,14 @@ const Profile = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProfileData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setProfileData((prevData) => {
+      const updatedData = {
+        ...prevData,
+        [name]: value,
+      };
+      setHasChanges(JSON.stringify(updatedData) !== JSON.stringify(originalData));
+      return updatedData;
+    });
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -98,6 +125,7 @@ const Profile = () => {
             value={profileData.name}
             onChange={handleChange}
           />
+          {formErrors.name && <div className="text-danger">{formErrors.name}</div>}
         </div>
         <div className="col-md-6">
           <label className="form-label">Email:</label>
@@ -108,6 +136,7 @@ const Profile = () => {
             value={profileData.email}
             onChange={handleChange}
           />
+          {formErrors.email && <div className="text-danger">{formErrors.email}</div>}
         </div>
       </div>
 
@@ -125,21 +154,23 @@ const Profile = () => {
         <button
           type="submit"
           className="btn btn-warning mb-2 mb-md-0"
+          disabled={!hasChanges}
         >
           Update Changes
         </button>
-        <button 
+        {/* <button 
           type="button" 
           className="btn btn-info" 
-          onClick={()=>{
+          onClick={() => {
             Swal.fire({
               icon: "info",
               title: "Reset to Original",
               text: "This feature is currently in development.",
             });
-        }}>
+          }}
+        >
           <i className="fa fa-lock" aria-hidden="true"></i> &nbsp; Reset to Original
-        </button>
+        </button> */}
       </div>
     </form>
   );

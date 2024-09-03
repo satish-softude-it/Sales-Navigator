@@ -1,4 +1,5 @@
-﻿using CRM_System.Server.Models;
+﻿using CRM_System.Server.DTOs;
+using CRM_System.Server.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -189,5 +190,24 @@ namespace CRM_System.Server.Controllers
         {
             return _context.Customers.Any(e => e.CustomerId == id);
         }
+
+        // GET: api/Customers/distribution
+        // ChartJS
+        [HttpGet("distribution")]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<CustomerDistributionByStateDto>>> GetCustomerDistribution()
+        {
+            var customerDistribution = await _context.Customers
+                .GroupBy(c => c.State)
+                .Select(g => new CustomerDistributionByStateDto
+                {
+                    State = g.Key,
+                    TotalCustomers = g.Count()
+                })
+                .ToListAsync();
+
+            return Ok(customerDistribution);
+        }
+
     }
 }

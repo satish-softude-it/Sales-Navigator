@@ -4,10 +4,6 @@ import axios from 'axios';
 
 function GoogleSignIn() {
 const [state, setstate] = useState({})
-
-
-
-
     return (
 <GoogleLogin
   onSuccess={credentialResponse => {

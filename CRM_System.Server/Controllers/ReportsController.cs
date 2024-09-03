@@ -4,8 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using CRM_System.Server.DTOs;
+
+using System;
+
 
 namespace CRM_System.Server.Controllers
 {
@@ -68,5 +73,44 @@ namespace CRM_System.Server.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred. Please check the server logs for more details.");
             }
         }
+
+        // GET: api/Reports/monthlyReport
+        [HttpGet("monthlyReport")]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<MonthlyReportSummaryDto>>> GetMonthlyReportSummary()
+        {
+            try
+            {
+                // Fetch all reports from the database
+                var reports = await _context.Reports
+                    .ToListAsync();
+
+                // Group and format the data in-memory
+                var reportSummary = reports
+                    .Where(r => r.GeneratedAt.HasValue)  // Filter out reports with null GeneratedAt
+                    .GroupBy(r => new
+                    {
+                        Year = r.GeneratedAt.Value.Year,  // Access Value.Year
+                        Month = r.GeneratedAt.Value.Month, // Access Value.Month
+                        r.ReportType
+                    })
+                    .Select(g => new MonthlyReportSummaryDto
+                    {
+                        Month = $"{g.Key.Year}-{g.Key.Month:D2}",
+                        ReportType = g.Key.ReportType,
+                        TotalReports = g.Count()
+                    })
+                    .OrderBy(r => r.Month)
+                    .ToList();
+
+                return Ok(reportSummary);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while retrieving the monthly report summary.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while retrieving the report summary.");
+            }
+        }
+
     }
 }
