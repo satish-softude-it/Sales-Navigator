@@ -15,7 +15,7 @@ const UserActivity = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const baseUrl = 'https://localhost:7192/api';
+      const baseUrl = import.meta.env.VITE_API_BASE_URL; // Use the environment variable
       const headers = { Authorization: `Bearer ${token}` };
 
       const userResponse = await axios.get(`${baseUrl}/Users/${userId}`, { headers });
@@ -48,6 +48,7 @@ const UserActivity = () => {
   };
 
   const { user, customers, interactions } = data;
+
   return (
     <div className="container mt-4">
       <h2>User Dashboard</h2>

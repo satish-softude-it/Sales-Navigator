@@ -1,7 +1,20 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\",
-  "Documents": [],
+  "WorkspaceRootPath": "D:\\CRM\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|d:\\crm\\crm_system.server\\controllers\\customerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\controllers\\customerscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|d:\\crm\\crm_system.server\\models\\crmsystemdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\models\\crmsystemdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|d:\\crm\\crm_system.server\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0A77C86D-6331-47B2-8A86-6375DE34AEBF}|CRM_System.Server\\CRM_System.Server.csproj|solutionrelative:crm_system.server\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -18,6 +31,45 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CustomersController.cs",
+              "DocumentMoniker": "D:\\CRM\\CRM_System.Server\\Controllers\\CustomersController.cs",
+              "RelativeDocumentMoniker": "CRM_System.Server\\Controllers\\CustomersController.cs",
+              "ToolTip": "D:\\CRM\\CRM_System.Server\\Controllers\\CustomersController.cs",
+              "RelativeToolTip": "CRM_System.Server\\Controllers\\CustomersController.cs",
+              "ViewState": "AgIAAJwAAAAAAAAAAAAowKEAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-03T16:34:56.187Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "D:\\CRM\\CRM_System.Server\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "CRM_System.Server\\Controllers\\UsersController.cs",
+              "ToolTip": "D:\\CRM\\CRM_System.Server\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "CRM_System.Server\\Controllers\\UsersController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-03T16:06:04.074Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CrmSystemDbContext.cs",
+              "DocumentMoniker": "D:\\CRM\\CRM_System.Server\\Models\\CrmSystemDbContext.cs",
+              "RelativeDocumentMoniker": "CRM_System.Server\\Models\\CrmSystemDbContext.cs",
+              "ToolTip": "D:\\CRM\\CRM_System.Server\\Models\\CrmSystemDbContext.cs",
+              "RelativeToolTip": "CRM_System.Server\\Models\\CrmSystemDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-03T16:18:46.252Z",
+              "EditorCaption": ""
             }
           ]
         }

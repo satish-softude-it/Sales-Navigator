@@ -4,10 +4,10 @@ import Swal from "sweetalert2";
 
 const countriesWithStates = {
   India: [
-    "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", 
-    "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", 
-    "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", 
-    "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", 
+    "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa",
+    "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala",
+    "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland",
+    "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura",
     "Uttar Pradesh", "Uttarakhand", "West Bengal"
   ],
   USA: ["California", "Texas", "New York", "Florida", "Illinois"],
@@ -25,7 +25,7 @@ const AddCustomerDetails = () => {
     phone: "",
     address: "",
     city: "",
-    state: "Andhra Pradesh", // Default state
+    state: "",
     zipCode: "",
     country: "India", // Default country
     createdBy: userId,
@@ -38,6 +38,10 @@ const AddCustomerDetails = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [states, setStates] = useState(countriesWithStates[initialFormState.country]);
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    setStates(countriesWithStates[formData.country] || []);
+  }, [formData.country]);
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
@@ -55,26 +59,26 @@ const AddCustomerDetails = () => {
       country: selectedCountry,
       state: "" // Reset state when country changes
     }));
-    setStates(countriesWithStates[selectedCountry] || []);
   };
 
   const validateField = (name, value) => {
     let error = '';
-    
+
     switch (name) {
       case 'name':
-        error = value.trim() === '' ? 'Name is required' : '';
+        if (value.trim() === '') {
+          error = 'Name is required';
+        } else if (!/^[A-Za-z\s]+$/.test(value)) {
+          error = 'Name must be a string and contain only letters and spaces';
+        }
         break;
       case 'email':
-        // Regex for email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
         const emailParts = value.split('@');
         const domainParts = emailParts[1]?.split('.');
 
-        // Check the email format
         error = !emailRegex.test(value) ? 'Invalid email address' : '';
 
-        // Additional checks
         if (emailParts.length !== 2 || domainParts.length < 2) {
           error = 'Email address must have a prefix, domain name, and domain name identifier';
         }
@@ -86,7 +90,11 @@ const AddCustomerDetails = () => {
         error = !/^\d{6}$/.test(value) ? 'Zip code must be exactly 6 digits' : '';
         break;
       case 'city':
-        error = value.trim() === '' ? 'City is required' : '';
+        if (value.trim() === '') {
+          error = 'City is required';
+        } else if (!/^[A-Za-z\s]+$/.test(value)) {
+          error = 'City name must be a string and contain only letters and spaces';
+        }
         break;
       case 'state':
         error = value.trim() === '' ? 'State is required' : '';
@@ -279,3 +287,4 @@ const AddCustomerDetails = () => {
 };
 
 export default AddCustomerDetails;
+

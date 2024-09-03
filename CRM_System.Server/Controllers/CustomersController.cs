@@ -14,7 +14,6 @@ namespace CRM_System.Server.Controllers
     public class CustomersController : ControllerBase
     {
         private readonly CrmSystemDbContext _context;
-
         public CustomersController(CrmSystemDbContext context)
         {
             _context = context;
@@ -208,6 +207,5 @@ namespace CRM_System.Server.Controllers
 
             return Ok(customerDistribution);
         }
-
     }
 }
