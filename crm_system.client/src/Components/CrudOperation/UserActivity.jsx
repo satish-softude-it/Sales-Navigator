@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
 const UserActivity = () => {
   const [userId, setUserId] = useState('');
   const [data, setData] = useState({ user: null, customers: [], interactions: [] });
@@ -9,13 +8,20 @@ const UserActivity = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validate userId (example: check if it's a number)
+    if (!userId || isNaN(userId)) {
+      setError('Please enter a valid User ID.');
+      return;
+    }
+
     setError('');
     setData({ user: null, customers: [], interactions: [] });
     setIsLoading(true);
 
     try {
       const token = localStorage.getItem("token");
-      const baseUrl = 'https://localhost:7192/api';
+      const baseUrl = import.meta.env.VITE_SERVER_PORT; // Use the environment variable
       const headers = { Authorization: `Bearer ${token}` };
 
       const userResponse = await axios.get(`${baseUrl}/Users/${userId}`, { headers });
@@ -41,13 +47,19 @@ const UserActivity = () => {
         setError('No customers or interactions found for this user.');
       }
     } catch (error) {
-      setError('Error fetching data. Please check the user ID and try again.');
+      console.error('Error fetching data:', error); // Log the error for debugging
+      if (error.response && error.response.status === 404) {
+        setError('User not found.');
+      } else {
+        setError('Error fetching data. Please check the user ID and try again.');
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
   const { user, customers, interactions } = data;
+
   return (
     <div className="container mt-4">
       <h2>User Dashboard</h2>
@@ -137,3 +149,4 @@ const UserActivity = () => {
 };
 
 export default UserActivity;
+  

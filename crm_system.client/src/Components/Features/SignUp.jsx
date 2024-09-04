@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from "jwt-decode"; // No need for named import if you use default import
 
 const serverPort = import.meta.env.VITE_SERVER_PORT;
 const loginApi = `${serverPort}${import.meta.env.VITE_LOGIN_API}`;
@@ -20,33 +20,38 @@ const SignUp = () => {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormState((prevState) => ({
       ...prevState,
       [name]: value,
     }));
-  };
+  }, []);
 
-  const validateForm = () => {
+  const validateForm = useCallback(() => {
     let errors = {};
+    
     if (!formState.role) errors.role = "Role is required";
-    if (!formState.name.trim()) errors.name = "Name is required";
+    
+    if (!formState.name.trim()) {
+      errors.name = "Name is required";
+    } else if (!/^[A-Za-z\s]+$/.test(formState.name.trim())) {
+      errors.name = "Name must be a valid string";
+    }
+    
     if (!formState.email.trim()) errors.email = "Email is required";
-    else if (!/\S+@\S+\.\S+/.test(formState.email))
-      errors.email = "Email is invalid";
-
+    else if (!/\S+@\S+\.\S+/.test(formState.email)) errors.email = "Email is invalid";
+    
     if (!formState.password) errors.password = "Password is required";
-    else if (formState.password.length < 8)
-      errors.password = "Password must be at least 8 characters";
-    if (formState.password !== formState.confirmPassword)
-      errors.confirmPassword = "Passwords do not match";
-
+    else if (formState.password.length < 8) errors.password = "Password must be at least 8 characters";
+    if (formState.password !== formState.confirmPassword) errors.confirmPassword = "Passwords do not match";
+    
     return errors;
-  };
+  }, [formState]);
 
-  const handleGoogleSuccess = async (credentialResponse) => {
+  const handleGoogleSuccess = useCallback(async (credentialResponse) => {
     try {
       const decodedToken = jwtDecode(credentialResponse.credential);
       setFormState((prevState) => ({
@@ -63,15 +68,20 @@ const SignUp = () => {
         icon: "error",
       });
     }
-  };
+  }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
+
+    if (isSubmitting) return; // Prevent multiple submissions
+
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
+
+    setIsSubmitting(true);
 
     try {
       const { confirmPassword, ...dataToSubmit } = formState;
@@ -95,10 +105,7 @@ const SignUp = () => {
             console.log("Login Response: ", loginResponse.data);
 
             localStorage.setItem("token", loginResponse.data.token);
-            localStorage.setItem(
-              "user",
-              JSON.stringify(loginResponse.data.user)
-            );
+            localStorage.setItem("user", JSON.stringify(loginResponse.data.user));
 
             navigate("/dashboard");
           } catch (loginError) {
@@ -117,13 +124,13 @@ const SignUp = () => {
       console.error("Registration failed:", error);
       Swal.fire({
         title: "Oops!",
-        text:
-          error.response?.data?.message ||
-          "An error occurred. Please try again.",
+        text: error.response?.data?.message || "An error occurred. Please try again.",
         icon: "error",
       });
+    } finally {
+      setIsSubmitting(false);
     }
-  };
+  }, [formState, isGoogleSignUp, isSubmitting, navigate, validateForm]);
 
   return (
     <div className="container">
@@ -144,7 +151,7 @@ const SignUp = () => {
                   />
                 </div>
 
-<div className="text-center m-3"><span>OR</span></div>
+                <div className="text-center m-3"><span>OR</span></div>
                 <div className="form-floating mb-3">
                   <select
                     name="role"
@@ -159,12 +166,8 @@ const SignUp = () => {
                     </option>
                     <option value="admin">Admin</option>
                     <option value="sales_manager">Sales Manager</option>
-                    <option value="sales_representative">
-                      Sales Representative
-                    </option>
-                    <option value="support_representative">
-                      Sales Support
-                    </option>
+                    <option value="sales_representative">Sales Representative</option>
+                    <option value="support_representative">Sales Support</option>
                   </select>
                   <label htmlFor="floatingRole">
                     Role <span className="text-danger">*</span>
@@ -250,8 +253,8 @@ const SignUp = () => {
                   )}
                 </div>
 
-                <button className="btn btn-primary w-100 mb-3" type="submit">
-                  Submit
+                <button className="btn btn-primary w-100 mb-3" type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? "Submitting..." : "Submit"}
                 </button>
 
                 <div className="text-center" style={{ fontSize: "0.7rem" }}>

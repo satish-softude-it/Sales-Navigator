@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { ArrowUpDown, Users, Download } from "lucide-react";
+import { ArrowUpDown, Download } from "lucide-react";
 import * as XLSX from "xlsx";
 
 const Table = () => {
@@ -20,7 +20,7 @@ const Table = () => {
 
   const fetchData = async () => {
     setIsLoading(true);
-    try { 
+    try {
       const response = await axios.get("https://localhost:7192/api/Customers", {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -39,7 +39,7 @@ const Table = () => {
   };
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString();
+    return new Date(dateString).toLocaleDateString(); // Adjust format as needed
   };
 
   const columns = useMemo(() => {
@@ -118,7 +118,7 @@ const Table = () => {
       <div className="row">
         <div className="col-md-12">
           <h3 className="mb-3">Customer List</h3>
-          <div className="d-flex justify-content-between mb-3" style={{height:'7%'}}>
+          <div className="d-flex justify-content-between mb-3">
             <input
               type="text"
               placeholder="Search by name, email, or contact number..."
@@ -163,7 +163,7 @@ const Table = () => {
                       .filter((column) => column !== 'interactions')
                       .map((column) => (
                         <td key={column}>
-                          {typeof item[column] === "string" && item[column].includes("T")
+                          {column === 'updatedAt' || column === 'createdAt' || column === 'dateCreated'
                             ? formatDate(item[column])
                             : item[column]}
                         </td>
@@ -192,7 +192,7 @@ const Table = () => {
                       .map(([key, value]) => (
                         <tr key={key}>
                           <td><strong>{formatKey(key)}:</strong></td>
-                          <td>{value}</td>
+                          <td>{key === 'updatedAt' || key === 'createdAt' || key === 'dateCreated' ? formatDate(value) : value}</td>
                         </tr>
                       ))}
                   </tbody>

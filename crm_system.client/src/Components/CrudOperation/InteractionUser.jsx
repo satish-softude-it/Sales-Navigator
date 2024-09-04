@@ -60,6 +60,9 @@ const InteractionUser = () => {
     if (!formData.customerId) {
       setErrors(prevErrors => ({ ...prevErrors, customerId: "Customer ID is required" }));
       return;
+    }else     if ( isNaN(formData.customerId)) {
+      setErrors(prevErrors => ({ ...prevErrors, customerId: "Customer ID must be a number" }));
+      return;
     }
 
     if (!token) {
@@ -72,6 +75,7 @@ const InteractionUser = () => {
     }
 
     setIsLoading(true);
+    console.log(formData.customerId)
     try {
       const response = await axios.get(`https://localhost:7192/api/Customers/${formData.customerId}`, {
         headers: {
@@ -93,7 +97,7 @@ const InteractionUser = () => {
     } catch (error) {
       console.error("Error validating customer:", error.response);
       setIsCustomerValid(false);
-      setErrors(prevErrors => ({ ...prevErrors, customerId: "Error validating Customer ID" }));
+      setErrors(prevErrors => ({ ...prevErrors, customerId: error?.response?.data }));
       Swal.fire({
         icon: 'error',
         title: 'Error',

@@ -5,6 +5,7 @@ const CustomerList = () => {
   return (
     <>
     <Table/>
+    
     </>
   );
 };

@@ -127,7 +127,7 @@ const UserList = () => {
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-12">
-          <h3 className="mb-3">Customer List</h3>
+          <h3 className="mb-3">User List</h3>
           <div className="d-flex justify-content-between mb-3">
             <input
               type="text"
@@ -144,7 +144,7 @@ const UserList = () => {
             <div className="btn btn-info d-flex align-items-center">
               <Users size={24} className="me-2" />
               <div>
-                <strong>Total Customers:</strong>
+                <strong>Total Users:</strong>
                 <span className="fs-4"> {customerStats.totalCustomers}</span>
               </div>
             </div>

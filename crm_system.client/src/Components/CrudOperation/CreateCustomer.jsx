@@ -4,15 +4,19 @@ import Swal from "sweetalert2";
 
 const countriesWithStates = {
   India: [
-    "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", 
-    "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", 
-    "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", 
-    "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", 
+    "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa",
+    "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala",
+    "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland",
+    "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura",
     "Uttar Pradesh", "Uttarakhand", "West Bengal"
   ],
-  USA: ["California", "Texas", "New York", "Florida", "Illinois"],
-  Canada: ["Ontario", "Quebec", "British Columbia", "Alberta", "Manitoba"],
   // Add more countries and their states as needed
+};
+
+const statesWithCities = {
+  "Andhra Pradesh": ["Hyderabad", "Vijayawada", "Visakhapatnam", "Tirupati", "Guntur", "Kakinada"],
+  "Arunachal Pradesh": ["Itanagar", "Naharlagun", "Tawang", "Pasighat", "Bomdila", "Ziro"],
+  // Add more states and their cities as needed
 };
 
 const AddCustomerDetails = () => {
@@ -25,7 +29,7 @@ const AddCustomerDetails = () => {
     phone: "",
     address: "",
     city: "",
-    state: "Andhra Pradesh", // Default state
+    state: "",
     zipCode: "",
     country: "India", // Default country
     createdBy: userId,
@@ -37,7 +41,13 @@ const AddCustomerDetails = () => {
   const [formData, setFormData] = useState(initialFormState);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [states, setStates] = useState(countriesWithStates[initialFormState.country]);
+  const [cities, setCities] = useState(statesWithCities[initialFormState.state] || []);
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    setStates(countriesWithStates[formData.country] || []);
+    setCities(statesWithCities[formData.state] || []);
+  }, [formData.country, formData.state]);
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
@@ -53,28 +63,38 @@ const AddCustomerDetails = () => {
     setFormData(prevData => ({
       ...prevData,
       country: selectedCountry,
-      state: "" // Reset state when country changes
+      state: "", // Reset state when country changes
+      city: ""   // Reset city when country changes
     }));
-    setStates(countriesWithStates[selectedCountry] || []);
+  };
+
+  const handleStateChange = (e) => {
+    const selectedState = e.target.value;
+    setFormData(prevData => ({
+      ...prevData,
+      state: selectedState,
+      city: ""   // Reset city when state changes
+    }));
   };
 
   const validateField = (name, value) => {
     let error = '';
-    
+
     switch (name) {
       case 'name':
-        error = value.trim() === '' ? 'Name is required' : '';
+        if (value.trim() === '') {
+          error = 'Name is required';
+        } else if (!/^[A-Za-z\s]+$/.test(value)) {
+          error = 'Name must be a string and contain only letters and spaces';
+        }
         break;
       case 'email':
-        // Regex for email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
         const emailParts = value.split('@');
         const domainParts = emailParts[1]?.split('.');
 
-        // Check the email format
         error = !emailRegex.test(value) ? 'Invalid email address' : '';
 
-        // Additional checks
         if (emailParts.length !== 2 || domainParts.length < 2) {
           error = 'Email address must have a prefix, domain name, and domain name identifier';
         }
@@ -86,7 +106,11 @@ const AddCustomerDetails = () => {
         error = !/^\d{6}$/.test(value) ? 'Zip code must be exactly 6 digits' : '';
         break;
       case 'city':
-        error = value.trim() === '' ? 'City is required' : '';
+        if (value.trim() === '') {
+          error = 'City is required';
+        } else if (!/^[A-Za-z\s]+$/.test(value)) {
+          error = 'City name must be a string and contain only letters and spaces';
+        }
         break;
       case 'state':
         error = value.trim() === '' ? 'State is required' : '';
@@ -133,6 +157,7 @@ const AddCustomerDetails = () => {
       });
       setFormData(initialFormState);  // Reset form after successful submission
       setStates(countriesWithStates[initialFormState.country]); // Reset states to default
+      setCities(statesWithCities[initialFormState.state] || []); // Reset cities to default
       setErrors({});
     } catch (err) {
       console.error("Submission Error:", err.response ? err.response.data : err.message);
@@ -149,6 +174,7 @@ const AddCustomerDetails = () => {
   const handleReset = () => {
     setFormData(initialFormState);
     setStates(countriesWithStates[initialFormState.country]);
+    setCities(statesWithCities[initialFormState.state] || []);
     setErrors({});
   };
 
@@ -211,15 +237,18 @@ const AddCustomerDetails = () => {
       <div className="row mb-3">
         <div className="col-md-6">
           <label className="form-label">City:</label>
-          <input
-            type="text"
+          <select
             name="city"
-            className="form-control"
-            placeholder="Enter city"
+            className="form-select"
             value={formData.city}
             onChange={handleChange}
             required
-          />
+          >
+            <option value="" disabled>Select city</option>
+            {cities.map((city) => (
+              <option key={city} value={city}>{city}</option>
+            ))}
+          </select>
           {errors.city && <div className="text-danger">{errors.city}</div>}
         </div>
         <div className="col-md-6">
@@ -243,7 +272,7 @@ const AddCustomerDetails = () => {
             name="state"
             className="form-select"
             value={formData.state}
-            onChange={handleChange}
+            onChange={handleStateChange}
             required
           >
             <option value="" disabled>Select state</option>
