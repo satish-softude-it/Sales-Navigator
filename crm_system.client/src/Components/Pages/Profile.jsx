@@ -55,9 +55,24 @@ const Profile = () => {
 
   const validateForm = () => {
     const errors = {};
-    if (!profileData.name) errors.name = "Name is required";
-    if (!profileData.email) errors.email = "Email is required";
-    else if (!/\S+@\S+\.\S+/.test(profileData.email)) errors.email = "Email is invalid";
+
+    if (!profileData.name) {
+      errors.name = "Name is required";
+    } else if (!/^[a-zA-Z\s]+$/.test(profileData.name)) {
+      errors.name = "Name must contain only letters and spaces";
+    }
+
+    // Email validation
+    if (!profileData.email) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(profileData.email)) {
+      errors.email = "Email is invalid";
+    } else {
+      const [localPart] = profileData.email.split("@");
+      if (!/^[a-zA-Z]/.test(localPart)) {
+        errors.email = "Email's local part must start with a letter";
+      }
+    }
 
     setFormErrors(errors);
     return Object.keys(errors).length === 0;

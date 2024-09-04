@@ -10,9 +10,13 @@ const countriesWithStates = {
     "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura",
     "Uttar Pradesh", "Uttarakhand", "West Bengal"
   ],
-  USA: ["California", "Texas", "New York", "Florida", "Illinois"],
-  Canada: ["Ontario", "Quebec", "British Columbia", "Alberta", "Manitoba"],
   // Add more countries and their states as needed
+};
+
+const statesWithCities = {
+  "Andhra Pradesh": ["Hyderabad", "Vijayawada", "Visakhapatnam", "Tirupati", "Guntur", "Kakinada"],
+  "Arunachal Pradesh": ["Itanagar", "Naharlagun", "Tawang", "Pasighat", "Bomdila", "Ziro"],
+  // Add more states and their cities as needed
 };
 
 const AddCustomerDetails = () => {
@@ -37,11 +41,13 @@ const AddCustomerDetails = () => {
   const [formData, setFormData] = useState(initialFormState);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [states, setStates] = useState(countriesWithStates[initialFormState.country]);
+  const [cities, setCities] = useState(statesWithCities[initialFormState.state] || []);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
     setStates(countriesWithStates[formData.country] || []);
-  }, [formData.country]);
+    setCities(statesWithCities[formData.state] || []);
+  }, [formData.country, formData.state]);
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
@@ -57,7 +63,17 @@ const AddCustomerDetails = () => {
     setFormData(prevData => ({
       ...prevData,
       country: selectedCountry,
-      state: "" // Reset state when country changes
+      state: "", // Reset state when country changes
+      city: ""   // Reset city when country changes
+    }));
+  };
+
+  const handleStateChange = (e) => {
+    const selectedState = e.target.value;
+    setFormData(prevData => ({
+      ...prevData,
+      state: selectedState,
+      city: ""   // Reset city when state changes
     }));
   };
 
@@ -141,6 +157,7 @@ const AddCustomerDetails = () => {
       });
       setFormData(initialFormState);  // Reset form after successful submission
       setStates(countriesWithStates[initialFormState.country]); // Reset states to default
+      setCities(statesWithCities[initialFormState.state] || []); // Reset cities to default
       setErrors({});
     } catch (err) {
       console.error("Submission Error:", err.response ? err.response.data : err.message);
@@ -157,6 +174,7 @@ const AddCustomerDetails = () => {
   const handleReset = () => {
     setFormData(initialFormState);
     setStates(countriesWithStates[initialFormState.country]);
+    setCities(statesWithCities[initialFormState.state] || []);
     setErrors({});
   };
 
@@ -219,15 +237,18 @@ const AddCustomerDetails = () => {
       <div className="row mb-3">
         <div className="col-md-6">
           <label className="form-label">City:</label>
-          <input
-            type="text"
+          <select
             name="city"
-            className="form-control"
-            placeholder="Enter city"
+            className="form-select"
             value={formData.city}
             onChange={handleChange}
             required
-          />
+          >
+            <option value="" disabled>Select city</option>
+            {cities.map((city) => (
+              <option key={city} value={city}>{city}</option>
+            ))}
+          </select>
           {errors.city && <div className="text-danger">{errors.city}</div>}
         </div>
         <div className="col-md-6">
@@ -251,7 +272,7 @@ const AddCustomerDetails = () => {
             name="state"
             className="form-select"
             value={formData.state}
-            onChange={handleChange}
+            onChange={handleStateChange}
             required
           >
             <option value="" disabled>Select state</option>
@@ -287,4 +308,3 @@ const AddCustomerDetails = () => {
 };
 
 export default AddCustomerDetails;
-

@@ -1,0 +1,10 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:5173",
+"RedirectUrl": "",
+"LaunchCommand": "npm run dev",
+"WorkingDirectory": "C:\\Users\\satish.vishwakarma\\Desktop\\SalesNavigator\\CRM_System\\CRM_System.Server\\..\\crm_system.client",
+"MaxTimeoutInSeconds": "120",
+"KeepRunning": "false"
+}
+}

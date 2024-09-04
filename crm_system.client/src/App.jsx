@@ -8,7 +8,7 @@ import Home from "./Components/Pages/Home";
 import About from "./Components/Pages/About";
 import Contact from "./Components/Pages/Contact";
 import Dashboard from "./Components/Pages/Dashboard";
-import PrivateRoute from "./Components/PrivateRoute"; // Import the PrivateRoute component
+import PrivateRoute from "./Components/PrivateRoute"; 
 
 function App() {
   return (
